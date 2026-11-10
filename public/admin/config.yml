@@ -1,7 +1,7 @@
 # STEP: change YOUR-GITHUB-USERNAME/YOUR-REPO-NAME below to your real GitHub repo (see SETUP-GUIDE.md).
 backend:
   name: github
-  repo: YOUR-GITHUB-USERNAME/YOUR-REPO-NAME
+  repo: blue42prod/Blue42Prod
   branch: main
 media_folder: public/uploads
 public_folder: /uploads
