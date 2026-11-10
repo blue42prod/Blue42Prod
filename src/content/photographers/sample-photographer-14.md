@@ -1,10 +1,13 @@
 ---
-title: "Sample Photographer 14"
-regions: ["northshore"]
-specialties: ["Band and spirit", "Stadium and drone"]
-rates: "Sample rate: add yours"
-email: "sample.photographer14@example.com"
-bio: "Sample bio. Replace with the real photographer."
+title: Cade Carlson
+regions:
+  - northshore
+specialties:
+  - Action and spirit
+  - Stadium
+rates: "Sample rate: $25"
+email: ""
+link: https://www.instagram.com/cadecaptures.1?srtk=MWpqczdhN3F0b2pzeQ==
+bio: Capturing action and life - Highschool or College
+image: /uploads/img_3454.jpeg
 ---
-
-
