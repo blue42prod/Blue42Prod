@@ -7,6 +7,6 @@ specialties:
 rates: "Sample rate: $25"
 email: shotzbytylerwork@gmail.com
 phone: 225-828-9778
-link: ""
+link: https://www.instagram.com/shotzby.tyler
 bio: Top notch sports photography - emotion and great edits
 ---
