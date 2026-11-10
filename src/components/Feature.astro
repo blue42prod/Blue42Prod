@@ -1,0 +1,8 @@
+---
+const { s } = Astro.props;
+const show = s.image && s.imagePermission;
+---
+<div class="feat">
+  {show ? <img class="pic wide" src={s.image} alt={s.imageAlt || s.title} /> : <div class="ph wide">Photo coming soon</div>}
+  <div><span class="kick">Story of the week</span><h2>{s.title}</h2><p class="muted">{s.dek}</p><p><a class="pill" href={`/stories/${s.slug}/`}>Read the story</a></p></div>
+</div>

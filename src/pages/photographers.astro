@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import { photographers, regions, regionName } from '../lib/data.js';
+---
+<Base title="Photographers" description="Find a Louisiana high school sports photographer by region and get their contact details.">
+<section class="pg"><div class="wrap">
+<div class="head"><span class="kick">Photographers</span><h1>Find a photographer.</h1><p class="muted">Choose a region to see who covers it and how to reach them.</p></div>
+<div class="two"><div>
+<svg class="mapsvg" viewBox="0 0 750 700" role="group" aria-label="Louisiana regions map"><defs><clipPath id="la"><path d="M8,13 L413,17 L414,83 L437,149 L381,254 L353,347 L616,347 L616,479 L634,487 L663,520 L691,627 L719,677 L635,660 L550,660 L437,627 L296,586 L155,553 L37,561 L56,479 L77,363 L42,257 L8,182 Z"/></clipPath></defs>
+<g clip-path="url(#la)">{regions.flatMap((r) => r.rects.map((q) => <rect class="reg" x={q[0]} y={q[1]} width={q[2]} height={q[3]} data-id={r.id} tabindex="0" role="button" aria-label={r.name} />))}</g>
+{regions.map((r) => <text class="lab" x={r.x} y={r.y} data-id={r.id}>{r.label}</text>)}</svg>
+<p class="note">Stylized map. Click a region.</p></div>
+<div><div class="chips" id="rc" role="group" aria-label="Choose a region"><button class="chip on" data-v="all">All regions</button>{regions.map((r) => <button class="chip" data-v={r.id}>{r.label}</button>)}</div>
+<h2 id="rn" style="margin-bottom:.5rem">All regions</h2><p class="muted" id="cnt" style="margin:0 0 2rem"></p>
+<div id="pl">{photographers.map((p) => <div class="ph-card" data-regions={(p.regions || []).join(' ')}>
+<h3 style="font-size:1.3rem">{p.title}</h3>
+<div class="tags">{(p.specialties || []).map((s) => <span>{s}</span>)}</div>
+<span class="muted">Covers: {(p.regions || []).map(regionName).join(', ')}</span>
+{p.rates ? <span class="muted">{p.rates}</span> : null}
+{p.email ? <span><a class="lnk" href={`mailto:${p.email}`}>{p.email}</a></span> : null}
+{p.phone ? <span><a class="lnk" href={`tel:${p.phone}`}>{p.phone}</a></span> : null}
+{p.link ? <span><a class="lnk" href={p.link} rel="noopener">Website or Instagram</a></span> : null}
+{p.bio ? <p class="muted" style="margin:0">{p.bio}</p> : null}</div>)}</div></div></div>
+</div></section>
+<script is:inline define:vars={{ names: Object.fromEntries(regions.map((r) => [r.id, r.name])) }}>
+var chips=document.getElementById('rc');
+function pick(id){document.querySelectorAll('.reg,.lab').forEach(function(e){e.classList.toggle('on',e.dataset.id===id)});[].forEach.call(chips.children,function(b){b.classList.toggle('on',b.dataset.v===id)});var n=0;document.querySelectorAll('#pl .ph-card').forEach(function(c){var ok=id==='all'||c.dataset.regions.split(' ').indexOf(id)>-1;c.hidden=!ok;if(ok)n++});document.getElementById('rn').textContent=id==='all'?'All regions':names[id];document.getElementById('cnt').textContent=n+(n===1?' photographer':' photographers')}
+chips.onclick=function(e){var v=e.target.dataset&&e.target.dataset.v;if(v)pick(v)};
+document.querySelectorAll('.reg').forEach(function(r){r.onclick=function(){pick(r.dataset.id)};r.onkeydown=function(k){if(k.key==='Enter'||k.key===' '){k.preventDefault();pick(r.dataset.id)}}});pick('all');
+</script>
+</Base>

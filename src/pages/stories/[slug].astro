@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import { stories, regionName, fmt } from '../../lib/data.js';
+export function getStaticPaths() { return stories.map((s) => ({ params: { slug: s.slug }, props: { s } })); }
+const { s } = Astro.props;
+const { Content } = s;
+const show = s.image && s.imagePermission;
+const schema = { '@context': 'https://schema.org', '@type': 'NewsArticle', headline: s.title, datePublished: new Date(s.date).toISOString(), description: s.dek, ...(show ? { image: [new URL(s.image, Astro.site).href] } : {}), publisher: { '@type': 'Organization', name: 'Blue 42 Productions' } };
+---
+<Base title={s.title} description={s.dek} type="article" schema={schema} image={show ? s.image : undefined}>
+<article class="pg"><div class="wrap prose">
+<span class="meta"><b>{s.category}</b>{s.region ? `, ${regionName(s.region)}` : ''}</span>
+<h1 style="font-size:clamp(2.2rem,6vw,3.75rem);margin:1rem 0 2rem">{s.title}</h1>
+{show ? <img class="pic wide" src={s.image} alt={s.imageAlt || s.title} /> : null}
+{s.photographer && show ? <p class="note">Photo: {s.photographer}</p> : null}
+<p class="muted">{fmt(s.date)}{s.school ? `, ${s.school}` : ''}</p>
+<p style="font-size:1.2rem">{s.dek}</p>
+<Content />
+<p><a class="lnk" href="/contact/?topic=removal">Request removal</a> of a photo or player mention.</p>
+</div></article>
+</Base>

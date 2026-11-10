@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { rankingSets, regions, regionName, fmt } from '../lib/data.js';
+const set = rankingSets[0];
+const entries = set ? [...(set.entries || [])].sort((a, b) => a.rank - b.rank) : [];
+const arrow = { up: '▲ Up', down: '▼ Down', same: 'Even' };
+---
+<Base title="Rankings" description="Louisiana high school football team rankings by region and LHSAA class.">
+<section class="pg"><div class="wrap">
+<div class="head"><span class="kick">Rankings</span><h1>{set ? set.title : 'Rankings'}</h1>{set && <p class="muted">Week of {fmt(set.week)}</p>}</div>
+<div class="chips" id="rc" role="group" aria-label="Filter by region"><button class="chip on" data-v="all">All regions</button>{regions.map((r) => <button class="chip" data-v={r.id}>{r.label}</button>)}</div>
+<div id="rl">{entries.map((t) => <div class="rrow" data-region={t.region}><span class="rk">{t.rank}</span><div><h3>{t.team}</h3><p>{regionName(t.region)}{t.classification ? `, Class ${t.classification}` : ''}{t.record ? `, ${t.record}` : ''}</p>{t.blurb ? <p>{t.blurb}</p> : null}</div><span class={`mv ${t.move || 'same'}`}>{arrow[t.move] || 'Even'}</span></div>)}</div>
+{entries.length === 0 && <p class="muted">Rankings are coming soon.</p>}
+</div></section>
+<script is:inline>
+var c=document.getElementById('rc');c.onclick=function(e){var v=e.target.dataset&&e.target.dataset.v;if(!v)return;[].forEach.call(c.children,function(b){b.classList.toggle('on',b.dataset.v===v)});document.querySelectorAll('#rl .rrow').forEach(function(r){r.hidden=!(v==='all'||r.dataset.region===v)})}
+</script>
+</Base>

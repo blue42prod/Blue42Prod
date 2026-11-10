@@ -1,0 +1,10 @@
+---
+import { regionName } from '../lib/data.js';
+const { s } = Astro.props;
+const show = s.image && s.imagePermission;
+---
+<a class="st" href={`/stories/${s.slug}/`} data-category={s.category} data-region={s.region}>
+  {show ? <img class="pic" src={s.image} alt={s.imageAlt || s.title} loading="lazy" /> : <div class="ph">Photo coming soon</div>}
+  <span class="meta"><b>{s.category}</b>{s.region ? `, ${regionName(s.region)}` : ''}</span>
+  <h3>{s.title}</h3>
+</a>

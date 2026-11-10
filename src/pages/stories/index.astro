@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import StoryCard from '../../components/StoryCard.astro';
+import Feature from '../../components/Feature.astro';
+import { stories } from '../../lib/data.js';
+const feat = stories.find((s) => s.featured) || stories[0];
+const top = stories.filter((s) => s.topPick).slice(0, 5);
+const cats = ['All', ...new Set(stories.map((s) => s.category))];
+import { regionName } from '../../lib/data.js';
+---
+<Base title="Stories" description="Game recaps, player spotlights, features, news, and culture from Louisiana high school football.">
+<section class="pg"><div class="wrap">
+<div class="head"><span class="kick">Stories</span><h1>Stories</h1><p class="muted">Game stories, spotlights, and features from across the state.</p></div>
+{feat && <Feature s={feat} />}
+{top.length > 0 && <div class="sp"><span class="kick">Stories of the week</span><div class="list">{top.map((s, i) => <div class="li"><span class="n">{i + 1}</span><div><h3><a href={`/stories/${s.slug}/`} style="text-decoration:none">{s.title}</a></h3><span class="meta"><b>{s.category}</b>{s.region ? `, ${regionName(s.region)}` : ''}</span></div></div>)}</div></div>}
+<div class="sp"><span class="kick">Game stories and more</span>
+<div class="chips" id="cats" role="group" aria-label="Filter by category">{cats.map((c, i) => <button class={`chip${i === 0 ? ' on' : ''}`} data-v={c}>{c}</button>)}</div>
+<div class="grid3" id="grid">{stories.map((s) => <StoryCard s={s} />)}</div></div>
+</div></section>
+<script is:inline>
+var box=document.getElementById('cats');box.onclick=function(e){var v=e.target.dataset&&e.target.dataset.v;if(!v)return;[].forEach.call(box.children,function(b){b.classList.toggle('on',b.dataset.v===v)});[].forEach.call(document.querySelectorAll('#grid .st'),function(c){c.hidden=!(v==='All'||c.dataset.category===v)})}
+</script>
+</Base>

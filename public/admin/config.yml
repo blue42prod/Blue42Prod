@@ -1,0 +1,136 @@
+# STEP: change YOUR-GITHUB-USERNAME/YOUR-REPO-NAME below to your real GitHub repo (see SETUP-GUIDE.md).
+backend:
+  name: github
+  repo: YOUR-GITHUB-USERNAME/YOUR-REPO-NAME
+  branch: main
+media_folder: public/uploads
+public_folder: /uploads
+publish_mode: simple
+site_url: https://blue42prod.com
+logo_url: /logo-white-bg.png
+
+collections:
+  - name: stories
+    label: Stories
+    folder: src/content/stories
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    summary: "{{title}} ({{category}})"
+    fields:
+      - {label: Title, name: title, widget: string}
+      - {label: Date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: Category, name: category, widget: select, options: ["Game Recaps", "Player Spotlights", "Features", "News", "Culture & Lifestyle"]}
+      - label: Region
+        name: region
+        widget: select
+        options: [{label: North Louisiana, value: north}, {label: Central, value: central}, {label: Southwest, value: southwest}, {label: Acadiana, value: acadiana}, {label: Baton Rouge Area, value: baton-rouge}, {label: Northshore, value: northshore}, {label: Greater New Orleans, value: new-orleans}]
+      - {label: School, name: school, widget: string, required: false}
+      - {label: Short summary, name: dek, widget: text}
+      - {label: Photo, name: image, widget: image, required: false}
+      - {label: Photo description (alt text), name: imageAlt, widget: string, required: false}
+      - {label: Photographer credit, name: photographer, widget: string, required: false}
+      - {label: "Permission on file for the photo (photo stays hidden unless checked)", name: imagePermission, widget: boolean, default: false}
+      - {label: "Story of the week (main feature, pick one at a time)", name: featured, widget: boolean, default: false}
+      - {label: "Show in the Stories of the week list", name: topPick, widget: boolean, default: false}
+      - {label: Story text, name: body, widget: markdown}
+
+  - name: photographers
+    label: Photographers
+    folder: src/content/photographers
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    fields:
+      - {label: Name, name: title, widget: string}
+      - label: Regions covered
+        name: regions
+        widget: select
+        multiple: true
+        options: [{label: North Louisiana, value: north}, {label: Central, value: central}, {label: Southwest, value: southwest}, {label: Acadiana, value: acadiana}, {label: Baton Rouge Area, value: baton-rouge}, {label: Northshore, value: northshore}, {label: Greater New Orleans, value: new-orleans}]
+      - {label: Specialties, name: specialties, widget: list, default: ["Game action"]}
+      - {label: Rates, name: rates, widget: string, required: false}
+      - {label: Business email, name: email, widget: string, required: false}
+      - {label: Business phone, name: phone, widget: string, required: false}
+      - {label: Website or Instagram link, name: link, widget: string, required: false}
+      - {label: Short bio, name: bio, widget: text, required: false}
+      - {label: Photo of the photographer, name: image, widget: image, required: false}
+
+  - name: photos
+    label: Photos
+    folder: src/content/photos
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    fields:
+      - {label: Caption, name: title, widget: string}
+      - {label: Photo, name: image, widget: image, required: false}
+      - {label: Photo description (alt text), name: alt, widget: string}
+      - {label: Photographer (credit shown on the photo), name: photographer, widget: string}
+      - {label: School, name: school, widget: string, required: false}
+      - {label: Game, name: game, widget: string, required: false}
+      - {label: "Permission on file (photo stays hidden unless checked)", name: permission, widget: boolean, default: false}
+
+  - name: polls
+    label: Polls
+    folder: src/content/polls
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    fields:
+      - {label: Poll title, name: title, widget: string}
+      - {label: Type, name: kind, widget: select, options: [{label: Best Jersey, value: jersey}, {label: Player of the Week, value: player}]}
+      - {label: Week of, name: week, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: Status, name: status, widget: select, options: [{label: Open for voting, value: open}, {label: Closed, value: closed}], default: open}
+      - {label: "Winner (fill in when you close the poll)", name: winner, widget: string, required: false}
+      - label: Options
+        name: options
+        widget: list
+        fields:
+          - {label: Name, name: label, widget: string}
+          - {label: School, name: school, widget: string, required: false}
+          - {label: Picture, name: image, widget: image, required: false}
+          - {label: "Permission on file for a player picture (hidden unless checked)", name: permission, widget: boolean, default: false}
+          - {label: "Jersey color if no picture (like #1647FF)", name: color, widget: string, required: false}
+          - {label: Jersey number if no picture, name: number, widget: string, required: false}
+
+  - name: rankings
+    label: Rankings
+    folder: src/content/rankings
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    fields:
+      - {label: Title, name: title, widget: string}
+      - {label: Week of, name: week, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - label: Teams
+        name: entries
+        widget: list
+        fields:
+          - {label: Rank, name: rank, widget: number, value_type: int}
+          - {label: Team, name: team, widget: string}
+          - label: Region
+            name: region
+            widget: select
+            options: [{label: North Louisiana, value: north}, {label: Central, value: central}, {label: Southwest, value: southwest}, {label: Acadiana, value: acadiana}, {label: Baton Rouge Area, value: baton-rouge}, {label: Northshore, value: northshore}, {label: Greater New Orleans, value: new-orleans}]
+          - {label: LHSAA class, name: classification, widget: string, required: false}
+          - {label: Record, name: record, widget: string, required: false}
+          - {label: Movement, name: move, widget: select, options: [{label: Up, value: up}, {label: Down, value: down}, {label: No change, value: same}], default: same}
+          - {label: Short blurb, name: blurb, widget: text, required: false}
+
+  - name: settings
+    label: Site text
+    files:
+      - label: Home and About text
+        name: site
+        file: src/content/settings/site.json
+        format: json
+        fields:
+          - {label: Home headline, name: heroHeadline, widget: string}
+          - {label: Home subheading, name: heroSubhead, widget: text}
+          - {label: About page text, name: aboutText, widget: text}

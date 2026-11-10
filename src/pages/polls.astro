@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import { polls, jerseySvg, fmt } from '../lib/data.js';
+const open = polls.filter((p) => p.status !== 'closed');
+const closed = polls.filter((p) => p.status === 'closed');
+---
+<Base title="Polls" description="Vote in this week’s Best Jersey and Player of the Week polls for Louisiana high school football.">
+<section class="pg"><div class="wrap">
+<div class="head"><span class="kick">Polls</span><h1>This week’s polls.</h1><p class="muted">One vote per poll for each visitor.</p></div>
+{open.map((poll, n) => <div class={n ? 'sp' : ''} data-poll={poll.slug}>
+<h2>{poll.title}</h2><p class="muted" style="margin:.75rem 0 2.5rem">Week of {fmt(poll.week)}</p>
+<div class="opts">{(poll.options || []).map((o, i) => <div class="opt" data-opt={i}>
+<div class="art">{o.image && o.permission ? <img src={o.image} alt={o.label} loading="lazy" /> : poll.kind === 'jersey' ? <Fragment set:html={jerseySvg(o.color, o.number)} /> : <div class="av">{(o.label || '?').slice(0, 1)}</div>}</div>
+<div><h3>{o.label}</h3>{o.school ? <span class="sub">{o.school}</span> : null}</div>
+<button class="pill vote" type="button" data-vote={i}>Vote</button>
+<div class="res" hidden><div class="bar2"><i></i></div><span class="sub"></span></div></div>)}</div>
+<p class="note" data-msg hidden></p></div>)}
+{open.length === 0 && <p class="muted">No poll is open right now. Check back soon.</p>}
+{closed.length > 0 && <div class="sp"><h2 style="margin-bottom:2rem">Past winners</h2><div class="arch">{closed.map((p) => <div><span>{p.title}</span><span class="muted">{p.winner || 'Winner coming soon'}</span></div>)}</div></div>}
+</div></section>
+<script is:inline>
+document.querySelectorAll('[data-poll]').forEach(function(el){
+var slug=el.dataset.poll,counts=null,mine=null,msg=el.querySelector('[data-msg]');
+try{mine=localStorage.getItem('b42-'+slug)}catch(e){}
+function paint(){var tot=counts?counts.reduce(function(a,b){return a+b},0):0;el.querySelectorAll('[data-opt]').forEach(function(o){var i=+o.dataset.opt,res=o.querySelector('.res'),btn=o.querySelector('button');if(mine!==null&&counts){var v=counts[i]||0,pc=tot?Math.round(v/tot*100):0;res.hidden=false;res.querySelector('i').style.width=pc+'%';res.querySelector('span').textContent=pc+'%'+(String(i)===mine?' (your vote)':'');btn.hidden=true}else{res.hidden=true;btn.hidden=false}})}
+fetch('/api/vote?poll='+slug).then(function(r){return r.json()}).then(function(j){counts=j.counts||[];paint()}).catch(function(){paint()});
+el.addEventListener('click',function(e){var b=e.target.closest('button[data-vote]');if(!b)return;b.disabled=true;
+fetch('/api/vote',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({poll:slug,option:+b.dataset.vote})}).then(function(r){return r.json()}).then(function(j){counts=j.counts||counts||[];mine=String(j.choice);try{localStorage.setItem('b42-'+slug,mine)}catch(e){}if(j.choice===-1){msg.textContent='A vote from this network was already counted for this poll.';msg.hidden=false}paint()}).catch(function(){b.disabled=false;msg.textContent='Voting is unavailable right now. Please try again.';msg.hidden=false})})})
+</script>
+</Base>

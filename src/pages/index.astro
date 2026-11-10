@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import StoryCard from '../components/StoryCard.astro';
+import Feature from '../components/Feature.astro';
+import { stories, site } from '../lib/data.js';
+const feat = stories.find((s) => s.featured) || stories[0];
+const latest = stories.filter((s) => s !== feat).slice(0, 3);
+---
+<Base title="Home" description="Blue 42 Productions covers Louisiana high school football with stories, photos, polls, and rankings.">
+<section class="pg"><div class="wrap">
+<span class="kick">Louisiana high school football</span>
+<h1 style="max-width:12ch">{site.heroHeadline}</h1>
+<p class="muted" style="max-width:44ch;font-size:1.2rem;margin:2rem 0 2.5rem">{site.heroSubhead}</p>
+<div class="row"><a class="pill" href="/stories/">Read the stories</a><a class="pill line" href="/photographers/">Find a photographer</a></div>
+{feat && <div class="sp"><Feature s={feat} /></div>}
+<div class="sp"><span class="kick">Latest stories</span><div class="grid3">{latest.map((s) => <StoryCard s={s} />)}</div><p style="margin-top:2.5rem"><a class="pill line" href="/stories/">All stories</a></p></div>
+<div class="sp two"><div><span class="kick">This week’s polls</span><h2>Vote for the best.</h2><p class="muted" style="margin:1.25rem 0 2rem">Best Jersey and Player of the Week.</p><a class="pill" href="/polls/">Go vote</a></div>
+<div><span class="kick">Need photos?</span><h2>Photographers near you.</h2><p class="muted" style="margin:1.25rem 0 2rem">Pick your region and get in touch.</p><a class="pill line" href="/photographers/">Open the map</a></div></div>
+</div></section>
+</Base>
