@@ -13,7 +13,14 @@ export const regionName = (id) => (regions.find((r) => r.id === id) || {}).name 
 export const stories = load(import.meta.glob('../content/stories/*.md', { eager: true })).sort(byDate('date'));
 export const photographers = load(import.meta.glob('../content/photographers/*.md', { eager: true })).sort((a, b) => a.title.localeCompare(b.title));
 export const shop = load(import.meta.glob('../content/shop/*.md', { eager: true })).filter((p) => p.active !== false).sort((a, b) => (a.order ?? 10) - (b.order ?? 10));
-export const photos = load(import.meta.glob('../content/photos/*.md', { eager: true })).filter((p) => p.permission === true);
+// Game galleries: each file is one game with a list of photos. Only photos with permission on file are shown.
+const cleanPhotos = (list, fallback = {}) => (list || []).filter((p) => p && p.permission === true).map((p) => ({ ...p, photographer: p.photographer || fallback.photographer || '', game: p.game || fallback.game || '' }));
+export const galleries = load(import.meta.glob('../content/galleries/*.md', { eager: true }))
+  .map((g) => ({ ...g, photos: cleanPhotos(g.photos, { photographer: g.photographer, game: g.title }) }))
+  .filter((g) => g.photos.length > 0)
+  .sort((a, b) => (b.date ? new Date(b.date) : 0) - (a.date ? new Date(a.date) : 0));
+import potwData from '../content/settings/photos-of-the-week.json';
+export const photosOfWeek = { ...potwData, photos: cleanPhotos(potwData.photos).slice(0, 5) };
 export const polls = load(import.meta.glob('../content/polls/*.md', { eager: true })).sort(byDate('week'));
 export const rankingSets = load(import.meta.glob('../content/rankings/*.md', { eager: true })).sort(byDate('week'));
 import siteData from '../content/settings/site.json';

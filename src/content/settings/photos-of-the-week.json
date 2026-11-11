@@ -1,0 +1,11 @@
+{
+  "week": "2026-11-07",
+  "intro": "Our five favorite frames from this week's games.",
+  "photos": [
+    { "image": "/uploads/img_3464.jpeg", "caption": "Alexandria smoke", "alt": "Alexandria game - purple unis.", "photographer": "Tyler Gandy", "game": "Alexandria High School", "permission": true },
+    { "caption": "Sample photo: kickoff tunnel", "alt": "Sample photo: kickoff tunnel", "photographer": "Sample Photographer 1", "game": "Sample Game 1", "permission": true },
+    { "caption": "Sample photo: student section", "alt": "Sample photo: student section", "photographer": "Sample Photographer 2", "game": "Sample Game 2", "permission": true },
+    { "caption": "Sample photo: fourth-quarter huddle", "alt": "Sample photo: fourth-quarter huddle", "photographer": "Sample Photographer 3", "game": "Sample Game 1", "permission": true },
+    { "caption": "Sample photo: band at halftime", "alt": "Sample photo: band at halftime", "photographer": "Sample Photographer 4", "game": "Sample Game 2", "permission": true }
+  ]
+}

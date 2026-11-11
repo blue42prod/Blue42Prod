@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+import PhotoTile from '../../components/PhotoTile.astro';
+import PhotoViewer from '../../components/PhotoViewer.astro';
+import { galleries, fmt } from '../../lib/data.js';
+export function getStaticPaths() { return galleries.map((g) => ({ params: { slug: g.slug }, props: { g } })); }
+const { g } = Astro.props;
+const credits = [...new Set(g.photos.map((p) => p.photographer).filter(Boolean))];
+const cover = g.cover || (g.photos.find((p) => p.image) || {}).image;
+---
+<Base title={`${g.title} photos`} description={`Photo gallery from ${g.title}${g.date ? ', ' + fmt(g.date) : ''}. Photos by ${credits.join(', ')}.`} image={cover}>
+<section class="pg"><div class="wrap">
+<p><a class="lnk" href="/photos/">← All photos</a></p>
+<div class="head"><span class="kick">{g.date ? fmt(g.date) : 'Gallery'}{g.school ? `, ${g.school}` : ''}</span><h1 style="font-size:clamp(2.2rem,6vw,3.75rem)">{g.title}</h1>
+<p class="muted">{g.photos.length} {g.photos.length === 1 ? 'photo' : 'photos'}{credits.length ? `. Photos by ${credits.join(', ')}.` : ''}</p>
+{g.description && <p>{g.description}</p>}</div>
+<div class="gal" data-group={g.slug}>{g.photos.map((p) => <PhotoTile p={p} />)}</div>
+</div></section>
+<PhotoViewer />
+</Base>

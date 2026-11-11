@@ -29,12 +29,13 @@ Unzip `blue42-decap.zip` on your computer. You will upload the files inside the 
 5. If a screen is named differently, search "Decap CMS GitHub backend Netlify" for the current steps.
 
 ## 6. Log in and edit
-Go to `your-site-address/admin` and click Login with GitHub. You will see: Stories, Photographers, Photos, Polls, Rankings, and Site text. Click one, click New (or open an existing item), fill in the form, click Publish. The site updates in about a minute.
+Go to `your-site-address/admin` and click Login with GitHub. You will see: Stories, Photographers, Photo galleries (one per game), Polls, Rankings, and Site text. Click one, click New (or open an existing item), fill in the form, click Publish. The site updates in about a minute.
 
 ## Your weekly routine
 - Polls: add a new poll with its options and set Status to Open. Set last week's poll to Closed and type the Winner so it appears in Past winners.
 - Stories: add recaps and features. Tick "Story of the week" on one story (untick the old one) and "Show in the Stories of the week list" on up to five.
-- Photos: upload the picture, add the photographer credit and alt text, and tick Permission on file. Photos without permission stay hidden.
+- Photo galleries: make one gallery per game. Enter the game name, date, school, and the photographer credit, then add as many photos as you like (upload, alt text, tick Permission on file). Only fill in a photographer on a single photo if someone else shot it. Photos without permission stay hidden.
+- Photos of the Week: open Site text, then Photos of the Week. Set the week date and pick up to 5 photos in order (#1 is shown biggest). Tick Permission on file for each one.
 - Rankings: duplicate last week's ranking or add a new one with the new date. The newest one shows on the site.
 - Replace every "Sample" item with real ones, or delete it. Open an item and use Delete entry.
 

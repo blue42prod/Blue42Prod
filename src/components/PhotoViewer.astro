@@ -1,0 +1,27 @@
+---
+// Shared lightbox. Any button with class "ptile" inside an element with [data-group] opens it;
+// arrows step through the other photos in the same group.
+---
+<dialog id="lb" class="lb" aria-label="Photo viewer">
+<img id="lbi" alt="" style="display:none">
+<div id="lbph" class="ph" style="display:none">Photo coming soon</div>
+<p id="lbc"></p>
+<div class="lbbar">
+<button class="pill line" type="button" id="lbp" aria-label="Previous photo">←</button>
+<span id="lbn" class="sub"></span>
+<button class="pill line" type="button" id="lbnx" aria-label="Next photo">→</button>
+<a class="lnk" href="/contact/?topic=removal" style="margin-left:auto">Request removal</a>
+<button class="pill line" type="button" id="lbx">Close</button>
+</div>
+</dialog>
+<script is:inline>
+(function(){
+var d=document.getElementById('lb'),im=document.getElementById('lbi'),ph=document.getElementById('lbph'),cap=document.getElementById('lbc'),num=document.getElementById('lbn'),prev=document.getElementById('lbp'),next=document.getElementById('lbnx');
+var set=[],i=0;
+function show(){var b=set[i];cap.textContent=b.dataset.cap;if(b.dataset.src){im.src=b.dataset.src;im.alt=b.dataset.alt||'';im.style.display='block';ph.style.display='none'}else{im.style.display='none';ph.style.display='grid'}num.textContent=set.length>1?(i+1)+' of '+set.length:'';prev.hidden=next.hidden=set.length<2}
+document.querySelectorAll('.ptile').forEach(function(b){b.addEventListener('click',function(){var g=b.closest('[data-group]');set=g?Array.prototype.slice.call(g.querySelectorAll('.ptile')):[b];i=set.indexOf(b);show();d.showModal()})});
+prev.onclick=function(){i=(i-1+set.length)%set.length;show()};next.onclick=function(){i=(i+1)%set.length;show()};
+document.getElementById('lbx').onclick=function(){d.close()};d.onclick=function(e){if(e.target===d)d.close()};
+d.addEventListener('keydown',function(e){if(set.length<2)return;if(e.key==='ArrowLeft')prev.onclick();if(e.key==='ArrowRight')next.onclick()});
+})();
+</script>

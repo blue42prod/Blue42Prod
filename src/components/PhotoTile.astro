@@ -1,0 +1,8 @@
+---
+const { p, rank, showGame = false } = Astro.props;
+const cap = [p.caption, p.game, p.photographer ? `Photo: ${p.photographer}` : ''].filter(Boolean).join('. ');
+---
+<button type="button" class="ptile" data-src={p.image || ''} data-alt={p.alt || p.caption || ''} data-cap={cap}>
+<span class="pframe">{p.image ? <img class="pic" src={p.image} alt={p.alt || p.caption || ''} loading="lazy" /> : <span class="ph">Photo coming soon</span>}{rank ? <span class="rank">{rank}</span> : null}</span>
+<span class="pmeta">{p.caption ? <span class="pcap">{p.caption}</span> : null}<span class="sub">{showGame && p.game ? `${p.game}, ` : ''}Photo: {p.photographer}</span></span>
+</button>

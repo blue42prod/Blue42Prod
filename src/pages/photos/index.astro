@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import PhotoTile from '../../components/PhotoTile.astro';
+import PhotoViewer from '../../components/PhotoViewer.astro';
+import { galleries, photosOfWeek, fmt } from '../../lib/data.js';
+const potw = photosOfWeek.photos;
+---
+<Base title="Photos" description="Friday night photo galleries from Louisiana high school football, plus our five photos of the week, credited to the photographers who shot them.">
+<section class="pg"><div class="wrap">
+<div class="head"><span class="kick">Photos</span><h1>Photos</h1><p class="muted">Galleries from every game we shoot. Every photo carries its photographer’s credit.</p></div>
+
+{potw.length > 0 && (
+<section aria-labelledby="potw-h" class="potw-sec">
+<div class="potw-head"><div><span class="kick">{photosOfWeek.week ? `Week of ${fmt(photosOfWeek.week)}` : 'This week'}</span><h2 id="potw-h">Photos of the Week</h2>{photosOfWeek.intro && <p class="muted" style="margin:1rem 0 0">{photosOfWeek.intro}</p>}</div></div>
+<div class="potw" data-group="potw">{potw.map((p, i) => <PhotoTile p={p} rank={i + 1} showGame />)}</div>
+</section>
+)}
+
+<section aria-labelledby="gal-h" class="sp">
+<span class="kick">By game</span><h2 id="gal-h" style="margin-bottom:clamp(2rem,5vw,3rem)">Game galleries</h2>
+{galleries.length === 0 ? <p class="muted">Galleries are on the way. Check back after Friday night.</p> : (
+<div class="grid3">{galleries.map((g) => {
+  const cover = g.cover ? { image: g.cover } : g.photos.find((p) => p.image) || {};
+  return (
+  <a class="st gcard" href={`/photos/${g.slug}/`}>
+  <span class="pframe">{cover.image ? <img class="pic" src={cover.image} alt="" loading="lazy" /> : <span class="ph">Photos coming soon</span>}<span class="count">{g.photos.length} {g.photos.length === 1 ? 'photo' : 'photos'}</span></span>
+  <span class="meta">{g.date ? <b>{fmt(g.date)}</b> : null}{g.date && g.school ? ', ' : ''}{g.school}</span>
+  <h3>{g.title}</h3>
+  </a>);
+})}</div>
+)}
+</section>
+</div></section>
+<PhotoViewer />
+</Base>
