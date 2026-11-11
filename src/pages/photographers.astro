@@ -1,10 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import { creators, regions, regionName } from '../lib/data.js';
+import { photographers, regions, regionName } from '../lib/data.js';
 ---
-<Base title="Creators" description="Find a Louisiana high school sports photographer by region and get their contact details.">
+<Base title="Photographers" description="Find a Louisiana high school sports photographer by region and get their contact details.">
 <section class="pg"><div class="wrap">
-<div class="head"><span class="kick">Creators</span><h1>Find a creator.</h1><p class="muted">Choose a region to see who covers it and how to reach them.</p></div>
+<div class="head"><span class="kick">Photographers</span><h1>Find a photographer.</h1><p class="muted">Choose a region to see who covers it and how to reach them.</p></div>
 <div class="two"><div>
 <svg class="mapsvg" viewBox="0 0 750 700" role="group" aria-label="Louisiana regions map"><defs><clipPath id="la"><path d="M8,13 L413,17 L414,83 L437,149 L381,254 L353,347 L616,347 L616,479 L634,487 L663,520 L691,627 L719,677 L635,660 L550,660 L437,627 L296,586 L155,553 L37,561 L56,479 L77,363 L42,257 L8,182 Z"/></clipPath></defs>
 <g clip-path="url(#la)">{regions.flatMap((r) => r.rects.map((q) => <rect class="reg" x={q[0]} y={q[1]} width={q[2]} height={q[3]} data-id={r.id} tabindex="0" role="button" aria-label={r.name} />))}</g>
