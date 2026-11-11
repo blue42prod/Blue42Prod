@@ -6,6 +6,9 @@ const byRank = (a, b) => (a.rank ?? 999) - (b.rank ?? 999);
 const teams = set ? [...(set.entries || [])].sort(byRank).slice(0, 30) : [];
 const players = set ? [...(set.players || [])].sort(byRank).slice(0, 30) : [];
 const top5 = players.slice(0, 5);
+const topSchools = teams.slice(0, 5);
+const restSchools = teams.slice(5);
+const initials = (n) => (n || '').replace(/\b(sample|high|school|hs|academy)\b/gi, '').trim().split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase() || '#';
 const rest = players.slice(5);
 const arrow = { up: '▲ Up', down: '▼ Down', same: 'Even' };
 const hex = (c) => (/^#[0-9a-f]{6}$/i.test(c || '') ? c : '#1647FF');
@@ -97,7 +100,28 @@ const details = (p) => [p.position, p.school, p.classYear ? `Class of ${p.classY
   {players.length === 0 && <p class="muted">Player rankings are coming soon.</p>}
 </div>
 <div role="tabpanel" id="panel-schools" aria-labelledby="tab-schools" class="rpanel" hidden>
-  <div class="rl">{teams.map((t) => <div class="rrow" data-region={t.region}><span class="rk">{t.rank}</span><div><h3>{t.team}</h3><p>{regionName(t.region)}{t.classification ? `, Class ${t.classification}` : ''}{t.record ? `, ${t.record}` : ''}</p>{t.blurb ? <p>{t.blurb}</p> : null}</div><span class={`mv ${t.move || 'same'}`}>{arrow[t.move] || 'Even'}</span></div>)}</div>
+  {topSchools.length > 0 && <>
+    <div class="cards-head"><h2>The Top 5 Schools</h2><p class="muted">Week of {fmt(set.week)}. Logos update with the rankings every week.</p></div>
+    <ol class="logos">
+      {topSchools.map((t) => {
+        const c = hex(t.color);
+        return (
+          <li class={`lslot ${tier(t.rank)}`} data-region={t.region} style={`--sc:${c};--si:${ink(c)}`}>
+            <span class="lrank" aria-hidden="true">{t.rank}</span>
+            <span class="lbadge">
+              {t.logo
+                ? <img src={t.logo} alt={`${t.team} football logo`} loading="lazy" />
+                : <span class="lmono" role="img" aria-label={`${t.team} logo placeholder`}>{initials(t.team)}</span>}
+            </span>
+            <span class="lname"><span class="sr">Number {t.rank}, </span>{t.team}</span>
+            <span class="lsub">{[t.classification ? `Class ${t.classification}` : '', t.record].filter(Boolean).join(' · ') || regionName(t.region)}</span>
+            <span class={`mv ${t.move || 'same'}`}>{arrow[t.move] || 'Even'}</span>
+          </li>
+        );
+      })}
+    </ol>
+  </>}
+  <div class="rl">{restSchools.map((t) => <div class="rrow" data-region={t.region}><span class="rk">{t.rank}</span><div><h3>{t.team}</h3><p>{regionName(t.region)}{t.classification ? `, Class ${t.classification}` : ''}{t.record ? `, ${t.record}` : ''}</p>{t.blurb ? <p>{t.blurb}</p> : null}</div><span class={`mv ${t.move || 'same'}`}>{arrow[t.move] || 'Even'}</span></div>)}</div>
   {teams.length === 0 && <p class="muted">School rankings are coming soon.</p>}
 </div>
 

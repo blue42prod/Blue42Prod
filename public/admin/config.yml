@@ -133,6 +133,8 @@ collections:
           - {label: LHSAA class, name: classification, widget: string, required: false}
           - {label: Record, name: record, widget: string, required: false}
           - {label: Movement, name: move, widget: select, options: [{label: Up, value: up}, {label: Down, value: down}, {label: No change, value: same}], default: same}
+          - {label: "Football logo (shown for the top 5 schools)", name: logo, widget: image, required: false}
+          - {label: "School color for the logo badge (like #1647FF)", name: color, widget: string, required: false}
           - {label: Short blurb, name: blurb, widget: text, required: false}
       - label: "Players (top 30 in the state; ranks 1 to 5 show as sports cards)"
         name: players
