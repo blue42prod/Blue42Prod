@@ -110,7 +110,8 @@ collections:
           - {label: Jersey number if no picture, name: number, widget: string, required: false}
 
   - name: rankings
-    label: Rankings
+    label: Rankings (schools and players)
+    label_singular: Weekly rankings
     folder: src/content/rankings
     create: true
     extension: md
@@ -132,6 +133,31 @@ collections:
           - {label: LHSAA class, name: classification, widget: string, required: false}
           - {label: Record, name: record, widget: string, required: false}
           - {label: Movement, name: move, widget: select, options: [{label: Up, value: up}, {label: Down, value: down}, {label: No change, value: same}], default: same}
+          - {label: Short blurb, name: blurb, widget: text, required: false}
+      - label: "Players (top 30 in the state; ranks 1 to 5 show as sports cards)"
+        name: players
+        widget: list
+        required: false
+        max: 30
+        summary: "#{{fields.rank}} {{fields.name}} ({{fields.school}})"
+        fields:
+          - {label: Rank, name: rank, widget: number, value_type: int}
+          - {label: Player name, name: name, widget: string}
+          - {label: School, name: school, widget: string}
+          - {label: "Position (like QB, RB, WR, LB)", name: position, widget: string, required: false}
+          - {label: "Class (like 2027 or Jr.)", name: classYear, widget: string, required: false}
+          - label: Region
+            name: region
+            widget: select
+            options: [{label: North Louisiana, value: north}, {label: Central, value: central}, {label: Southwest, value: southwest}, {label: Acadiana, value: acadiana}, {label: Baton Rouge Area, value: baton-rouge}, {label: Northshore, value: northshore}, {label: Greater New Orleans, value: new-orleans}]
+          - {label: "Height (like 6-2)", name: height, widget: string, required: false}
+          - {label: "Weight in lbs (like 205)", name: weight, widget: string, required: false}
+          - {label: Jersey number, name: number, widget: string, required: false}
+          - {label: "School color for the card (like #1647FF)", name: color, widget: string, required: false}
+          - {label: "Season stats line (like 1,385 rush yds, 17 TD)", name: stats, widget: string, required: false}
+          - {label: Movement, name: move, widget: select, options: [{label: Up, value: up}, {label: Down, value: down}, {label: No change, value: same}], default: same}
+          - {label: "Player photo (used on the sports card for the top 5; a tall photo works best)", name: image, widget: image, required: false}
+          - {label: "Permission on file for the player photo (photo stays hidden unless checked)", name: permission, widget: boolean, default: false}
           - {label: Short blurb, name: blurb, widget: text, required: false}
 
   - name: settings

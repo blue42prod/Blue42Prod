@@ -36,7 +36,7 @@ Go to `your-site-address/admin` and click Login with GitHub. You will see: Stori
 - Stories: add recaps and features. Tick "Story of the week" on one story (untick the old one) and "Show in the Stories of the week list" on up to five.
 - Photo galleries: make one gallery per game. Enter the game name, date, school, and the creator credit, then add as many photos as you like (upload, alt text, tick Permission on file). Only fill in a creator on a single photo if someone else shot it. Photos without permission stay hidden.
 - Photos of the Week: open Site text, then Photos of the Week. Set the week date and pick up to 5 photos in order (#1 is shown biggest). Tick Permission on file for each one.
-- Rankings: duplicate last week's ranking or add a new one with the new date. The newest one shows on the site.
+- Rankings: duplicate last week's ranking or add a new one with the new date. Each week has two lists: Teams (top 30 schools) and Players (top 30 players). The newest week shows on the site. Players ranked 1 to 5 appear as sports cards: add a tall player photo, tick Permission on file, and set the school color so the card matches their school.
 - Replace every "Sample" item with real ones, or delete it. Open an item and use Delete entry.
 
 ## Rules for players (they are minors)
