@@ -134,3 +134,19 @@ collections:
           - {label: Home headline, name: heroHeadline, widget: string}
           - {label: Home subheading, name: heroSubhead, widget: text}
           - {label: About page text, name: aboutText, widget: text}
+  - name: shop
+    label: Shop
+    folder: src/content/shop
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    fields:
+      - {label: Product name, name: title, widget: string}
+      - {label: Price (like $25), name: price, widget: string}
+      - {label: Photo, name: image, widget: image, required: false}
+      - {label: Photo description (alt text), name: alt, widget: string, required: false}
+      - {label: Sizes or details, name: details, widget: string, required: false}
+      - {label: Buy link (from your payment service), name: buyLink, widget: string}
+      - {label: Show in the shop, name: active, widget: boolean, default: true}
+      - {label: Sort order (small numbers first), name: order, widget: number, value_type: int, default: 10}
