@@ -188,7 +188,7 @@ players:
     position: WR
     number: "3"
     name: Easton Royal
-    rank: 1
+    rank: 2
     permission: true
     move: up
     region: new-orleans
@@ -203,7 +203,7 @@ players:
     position: TE
     number: "6"
     name: Ahmad Hudson
-    rank: 2
+    rank: 3
     permission: true
     move: up
     region: north
@@ -213,20 +213,23 @@ players:
     blurb: ""
     image: /uploads/img_3566.jpeg
     stats: 33 Receptions, 514 Recieving yards
-  - color: "#5B2A86"
-    height: 6-3
-    position: WR
-    number: "21"
-    name: Sample Player 3
-    rank: 3
-    permission: false
+  - color: "#8C1515"
+    height: 6'4.5
+    position: QB
+    number: "5"
+    name: Elijah Haven
+    rank: 1
+    permission: true
     move: up
     region: baton-rouge
-    school: Sample High C
-    classYear: "2029"
-    weight: "201"
-    blurb: Sample blurb. Replace with the real player and your write-up.
-    stats: 62 rec, 1,020 yds, 12 TD
+    school: Dunham High School
+    classYear: "2027"
+    weight: "220"
+    blurb: Elijah Haven is one of Louisiana's premier quarterback prospects and a
+      nationally ranked five-star recruit. He's a big, athletic dual-threat QB
+      who can beat defenses with his arm and his legs.
+    image: /uploads/img_3571.jpeg
+    stats: 3,931 Passing Yards, 62 Passing TD's, and 7 Interceptions
   - color: "#C77700"
     height: 6-4
     position: LB
