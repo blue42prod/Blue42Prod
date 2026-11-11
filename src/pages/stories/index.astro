@@ -12,7 +12,7 @@ import { regionName } from '../../lib/data.js';
 <section class="pg"><div class="wrap">
 <div class="head"><span class="kick">Stories</span><h1>Stories</h1><p class="muted">Game stories, spotlights, and features from across the state.</p></div>
 {feat && <Feature s={feat} />}
-{top.length > 0 && <div class="sp"><span class="kick">Stories of the week</span><div class="list">{top.map((s, i) => <div class="li"><span class="n">{i + 1}</span><div><h3><a href={`/stories/${s.slug}/`} style="text-decoration:none">{s.title}</a></h3><span class="meta"><b>{s.category}</b>{s.region ? `, ${regionName(s.region)}` : ''}</span></div></div>)}</div></div>}
+{top.length > 0 && <div class="sp"><span class="kick">Stories of the week</span><div class="list">{top.map((s, i) => <div class="li"><span class="n">{i + 1}</span><div><h3 class="story-title"><a href={`/stories/${s.slug}/`} style="text-decoration:none">{s.title}</a></h3><span class="meta"><b>{s.category}</b>{s.region ? `, ${regionName(s.region)}` : ''}</span></div></div>)}</div></div>}
 <div class="sp"><span class="kick">Game stories and more</span>
 <div class="chips" id="cats" role="group" aria-label="Filter by category">{cats.map((c, i) => <button class={`chip${i === 0 ? ' on' : ''}`} data-v={c}>{c}</button>)}</div>
 <div class="grid3" id="grid">{stories.map((s) => <StoryCard s={s} />)}</div></div>
