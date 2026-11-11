@@ -5,9 +5,9 @@ import PhotoViewer from '../../components/PhotoViewer.astro';
 import { galleries, photosOfWeek, fmt } from '../../lib/data.js';
 const potw = photosOfWeek.photos;
 ---
-<Base title="Photos" description="Friday night photo galleries from Louisiana high school football, plus our five photos of the week, credited to the photographers who shot them.">
+<Base title="Photos" description="Friday night photo galleries from Louisiana high school football, plus our five photos of the week, credited to the creators who shot them.">
 <section class="pg"><div class="wrap">
-<div class="head"><span class="kick">Photos</span><h1>Photos</h1><p class="muted">Galleries from every game we shoot. Every photo carries its photographer’s credit.</p></div>
+<div class="head"><span class="kick">Photos</span><h1>Photos</h1><p class="muted">Galleries from every game we shoot. Every photo carries its creator’s credit.</p></div>
 
 {potw.length > 0 && (
 <section aria-labelledby="potw-h" class="potw-sec">

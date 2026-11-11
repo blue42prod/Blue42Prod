@@ -11,7 +11,7 @@ export const regions = [
 ];
 export const regionName = (id) => (regions.find((r) => r.id === id) || {}).name || '';
 export const stories = load(import.meta.glob('../content/stories/*.md', { eager: true })).sort(byDate('date'));
-export const photographers = load(import.meta.glob('../content/photographers/*.md', { eager: true })).sort((a, b) => a.title.localeCompare(b.title));
+export const creators = load(import.meta.glob('../content/creators/*.md', { eager: true })).sort((a, b) => a.title.localeCompare(b.title));
 export const shop = load(import.meta.glob('../content/shop/*.md', { eager: true })).filter((p) => p.active !== false).sort((a, b) => (a.order ?? 10) - (b.order ?? 10));
 // Game galleries: each file is one game with a list of photos. Only photos with permission on file are shown.
 const cleanPhotos = (list, fallback = {}) => (list || []).filter((p) => p && p.permission === true).map((p) => ({ ...p, photographer: p.photographer || fallback.photographer || '', game: p.game || fallback.game || '' }));

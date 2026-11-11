@@ -5,7 +5,7 @@ category: "Game Recaps"
 region: "baton-rouge"
 school: "Sample Magnolia High"
 dek: "Sample placeholder summary. Replace this story in the admin page."
-photographer: "Sample Photographer"
+photographer: "Sample Creator"
 imagePermission: false
 featured: false
 topPick: false

@@ -30,15 +30,15 @@ collections:
       - {label: Short summary, name: dek, widget: text}
       - {label: Photo, name: image, widget: image, required: false}
       - {label: Photo description (alt text), name: imageAlt, widget: string, required: false}
-      - {label: Photographer credit, name: photographer, widget: string, required: false}
+      - {label: Creator credit, name: photographer, widget: string, required: false}
       - {label: "Permission on file for the photo (photo stays hidden unless checked)", name: imagePermission, widget: boolean, default: false}
       - {label: "Story of the week (main feature, pick one at a time)", name: featured, widget: boolean, default: false}
       - {label: "Show in the Stories of the week list", name: topPick, widget: boolean, default: false}
       - {label: Story text, name: body, widget: markdown}
 
-  - name: photographers
-    label: Photographers
-    folder: src/content/photographers
+  - name: creators
+    label: Creators
+    folder: src/content/creators
     create: true
     extension: md
     format: frontmatter
@@ -56,7 +56,7 @@ collections:
       - {label: Business phone, name: phone, widget: string, required: false}
       - {label: Website or Instagram link, name: link, widget: string, required: false}
       - {label: Short bio, name: bio, widget: text, required: false}
-      - {label: Photo of the photographer, name: image, widget: image, required: false}
+      - {label: Photo of the creator, name: image, widget: image, required: false}
 
   - name: galleries
     label: Photo galleries (one per game)
@@ -71,7 +71,7 @@ collections:
       - {label: "Game (like Alexandria vs. Pineville)", name: title, widget: string}
       - {label: Game date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false}
       - {label: School, name: school, widget: string, required: false}
-      - {label: "Photographer (default credit for every photo in this gallery)", name: photographer, widget: string}
+      - {label: "Creator (default credit for every photo in this gallery)", name: photographer, widget: string}
       - {label: "Cover photo (optional, the first photo is used if empty)", name: cover, widget: image, required: false}
       - {label: Short description, name: description, widget: text, required: false}
       - label: Photos
@@ -82,7 +82,7 @@ collections:
           - {label: Photo, name: image, widget: image, required: false}
           - {label: Caption, name: caption, widget: string, required: false}
           - {label: Photo description (alt text), name: alt, widget: string}
-          - {label: "Photographer (only if different from the gallery credit)", name: photographer, widget: string, required: false}
+          - {label: "Creator (only if different from the gallery credit)", name: photographer, widget: string, required: false}
           - {label: "Permission on file (photo stays hidden unless checked)", name: permission, widget: boolean, default: false}
 
   - name: polls
@@ -162,7 +162,7 @@ collections:
               - {label: Photo, name: image, widget: image, required: false}
               - {label: Caption, name: caption, widget: string, required: false}
               - {label: Photo description (alt text), name: alt, widget: string}
-              - {label: Photographer (credit shown on the photo), name: photographer, widget: string}
+              - {label: Creator (credit shown on the photo), name: photographer, widget: string}
               - {label: Game, name: game, widget: string, required: false}
               - {label: "Permission on file (photo stays hidden unless checked)", name: permission, widget: boolean, default: false}
   - name: shop
