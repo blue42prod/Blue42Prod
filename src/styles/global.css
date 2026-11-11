@@ -72,3 +72,10 @@ footer{padding:4rem 0;color:var(--muted);font-size:.95rem;border-top:1px solid v
 .gcard .pic,.gcard .ph{transition:transform .25s}.gcard:hover .pic{transform:scale(1.02)}.gcard .pframe{overflow:hidden;border-radius:20px}
 .lb img{width:100%;border-radius:12px;max-height:72vh;object-fit:contain;background:#000}
 .lbbar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}.lbbar .pill{padding:.5rem 1.1rem}
+
+/* Story typography: headings and titles in Times New Roman, story text in Bank Gothic (Michroma is the free fallback for visitors without Bank Gothic installed) */
+@font-face{font-family:'Bank Gothic Local';src:local('Bank Gothic Medium BT'),local('BankGothic Md BT'),local('BankGothic-Medium'),local('Bank Gothic'),local('BankGothic Lt BT'),local('BankGothic-Light');font-display:swap}
+:root{--story-head:'Times New Roman',Times,serif;--story-body:'Bank Gothic','BankGothic Md BT','Bank Gothic Local','Michroma',sans-serif}
+.story-title,.story-body h1,.story-body h2,.story-body h3,.story-body h4,.story-body h5,.story-body h6{font-family:var(--story-head);letter-spacing:0}
+.story-body,.story-body p,.story-body li,.story-body blockquote,.story-dek{font-family:var(--story-body)}
+.story-body{font-size:1rem;line-height:1.85}
