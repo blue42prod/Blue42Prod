@@ -58,21 +58,32 @@ collections:
       - {label: Short bio, name: bio, widget: text, required: false}
       - {label: Photo of the photographer, name: image, widget: image, required: false}
 
-  - name: photos
-    label: Photos
-    folder: src/content/photos
+  - name: galleries
+    label: Photo galleries (one per game)
+    label_singular: Game gallery
+    folder: src/content/galleries
     create: true
     extension: md
     format: frontmatter
     slug: "{{slug}}"
+    summary: "{{title}} ({{date}})"
     fields:
-      - {label: Caption, name: title, widget: string}
-      - {label: Photo, name: image, widget: image, required: false}
-      - {label: Photo description (alt text), name: alt, widget: string}
-      - {label: Photographer (credit shown on the photo), name: photographer, widget: string}
+      - {label: "Game (like Alexandria vs. Pineville)", name: title, widget: string}
+      - {label: Game date, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false}
       - {label: School, name: school, widget: string, required: false}
-      - {label: Game, name: game, widget: string, required: false}
-      - {label: "Permission on file (photo stays hidden unless checked)", name: permission, widget: boolean, default: false}
+      - {label: "Photographer (default credit for every photo in this gallery)", name: photographer, widget: string}
+      - {label: "Cover photo (optional, the first photo is used if empty)", name: cover, widget: image, required: false}
+      - {label: Short description, name: description, widget: text, required: false}
+      - label: Photos
+        name: photos
+        widget: list
+        summary: "{{fields.caption}}"
+        fields:
+          - {label: Photo, name: image, widget: image, required: false}
+          - {label: Caption, name: caption, widget: string, required: false}
+          - {label: Photo description (alt text), name: alt, widget: string}
+          - {label: "Photographer (only if different from the gallery credit)", name: photographer, widget: string, required: false}
+          - {label: "Permission on file (photo stays hidden unless checked)", name: permission, widget: boolean, default: false}
 
   - name: polls
     label: Polls
@@ -134,6 +145,25 @@ collections:
           - {label: Home headline, name: heroHeadline, widget: string}
           - {label: Home subheading, name: heroSubhead, widget: text}
           - {label: About page text, name: aboutText, widget: text}
+      - label: Photos of the Week
+        name: photos-of-the-week
+        file: src/content/settings/photos-of-the-week.json
+        format: json
+        fields:
+          - {label: Week of, name: week, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+          - {label: Short intro, name: intro, widget: string, required: false}
+          - label: "Photos (up to 5, in order)"
+            name: photos
+            widget: list
+            max: 5
+            summary: "{{fields.caption}}"
+            fields:
+              - {label: Photo, name: image, widget: image, required: false}
+              - {label: Caption, name: caption, widget: string, required: false}
+              - {label: Photo description (alt text), name: alt, widget: string}
+              - {label: Photographer (credit shown on the photo), name: photographer, widget: string}
+              - {label: Game, name: game, widget: string, required: false}
+              - {label: "Permission on file (photo stays hidden unless checked)", name: permission, widget: boolean, default: false}
   - name: shop
     label: Shop
     folder: src/content/shop
