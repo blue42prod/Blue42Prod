@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { shop } from '../lib/data.js';
+---
+<Base title="Shop" description="Blue 42 Productions merch and apparel.">
+<section class="pg"><div class="wrap">
+<div class="head"><span class="kick">Shop</span><h1>Blue 42 gear.</h1><p class="muted">Official merch and apparel. Checkout is handled securely by our payment partner.</p></div>
+<div class="grid3">{shop.map((p) => <div style="display:grid;gap:.9rem;align-content:start">
+{p.image ? <img class="pic" src={p.image} alt={p.alt || p.title} loading="lazy" /> : <div class="ph">Photo coming soon</div>}
+<h3>{p.title}</h3><span class="muted">{p.details}</span><strong>{p.price}</strong>
+<a class="pill" style="justify-self:start" href={p.buyLink} rel="noopener">Buy now</a></div>)}</div>
+{shop.length === 0 && <p class="muted">New gear is coming soon.</p>}
+</div></section>
+</Base>
