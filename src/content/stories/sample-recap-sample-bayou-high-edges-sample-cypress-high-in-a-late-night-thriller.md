@@ -5,7 +5,7 @@ category: "Game Recaps"
 region: "acadiana"
 school: "Sample Bayou High"
 dek: "Sample placeholder summary. Replace this story in the admin page."
-photographer: "Sample Photographer"
+photographer: "Sample Creator"
 imagePermission: false
 featured: true
 topPick: true

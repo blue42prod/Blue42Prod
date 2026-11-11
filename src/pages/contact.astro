@@ -1,11 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Contact" description="Contact Blue 42 Productions, request a photographer, advertise, or request removal of a photo or player mention.">
+<Base title="Contact" description="Contact Blue 42 Productions, request a creator, advertise, or request removal of a photo or player mention.">
 <section class="pg"><div class="wrap"><div class="head"><span class="kick">Contact</span><h1>Get in touch.</h1></div>
 <form class="f" name="contact" method="POST" action="/contact/" data-netlify="true" netlify-honeypot="bot">
 <input type="hidden" name="form-name" value="contact"><p hidden><label>Skip this <input name="bot"></label></p>
-<label>Topic<select name="topic" id="topic"><option value="general">General question</option><option value="photographer">Request a photographer</option><option value="removal">Request removal of a photo or player mention</option><option value="sponsor">Advertise or sponsor</option></select></label>
+<label>Topic<select name="topic" id="topic"><option value="general">General question</option><option value="creator">Request a creator</option><option value="removal">Request removal of a photo or player mention</option><option value="sponsor">Advertise or sponsor</option></select></label>
 <label>Your name<input name="name" required autocomplete="name"></label>
 <label>Your email<input name="email" type="email" required autocomplete="email"></label>
 <label>Message (for removals, include the page link)<textarea name="message" rows="5" required></textarea></label>

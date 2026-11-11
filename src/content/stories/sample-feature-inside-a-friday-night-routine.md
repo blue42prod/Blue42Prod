@@ -5,7 +5,7 @@ category: "Features"
 region: "southwest"
 school: "Sample Cotton High"
 dek: "Sample placeholder summary. Replace this story in the admin page."
-photographer: "Sample Photographer"
+photographer: "Sample Creator"
 imagePermission: false
 featured: false
 topPick: false

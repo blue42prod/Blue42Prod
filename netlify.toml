@@ -5,3 +5,8 @@
   NODE_VERSION = "22"
 [functions]
   directory = "netlify/functions"
+
+[[redirects]]
+  from = "/photographers/*"
+  to = "/creators/"
+  status = 301

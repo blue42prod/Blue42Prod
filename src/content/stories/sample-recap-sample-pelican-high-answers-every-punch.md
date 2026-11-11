@@ -5,7 +5,7 @@ category: "Game Recaps"
 region: "new-orleans"
 school: "Sample Pelican High"
 dek: "Sample placeholder summary. Replace this story in the admin page."
-photographer: "Sample Photographer"
+photographer: "Sample Creator"
 imagePermission: false
 featured: false
 topPick: false

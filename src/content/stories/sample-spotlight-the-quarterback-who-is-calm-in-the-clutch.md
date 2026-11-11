@@ -5,7 +5,7 @@ category: "Player Spotlights"
 region: "north"
 school: "Sample Cypress High"
 dek: "Sample placeholder summary. Replace this story in the admin page."
-photographer: "Sample Photographer"
+photographer: "Sample Creator"
 imagePermission: false
 featured: false
 topPick: true
