@@ -12,6 +12,7 @@ export const regions = [
 export const regionName = (id) => (regions.find((r) => r.id === id) || {}).name || '';
 export const stories = load(import.meta.glob('../content/stories/*.md', { eager: true })).sort(byDate('date'));
 export const photographers = load(import.meta.glob('../content/photographers/*.md', { eager: true })).sort((a, b) => a.title.localeCompare(b.title));
+export const shop = load(import.meta.glob('../content/shop/*.md', { eager: true })).filter((p) => p.active !== false).sort((a, b) => (a.order ?? 10) - (b.order ?? 10));
 export const photos = load(import.meta.glob('../content/photos/*.md', { eager: true })).filter((p) => p.permission === true);
 export const polls = load(import.meta.glob('../content/polls/*.md', { eager: true })).sort(byDate('week'));
 export const rankingSets = load(import.meta.glob('../content/rankings/*.md', { eager: true })).sort(byDate('week'));
