@@ -1,18 +1,106 @@
 ---
 import Base from '../layouts/Base.astro';
-import { rankingSets, regions, regionName, fmt } from '../lib/data.js';
+import { rankingSets, regions, regionName, fmt, jerseySvg } from '../lib/data.js';
 const set = rankingSets[0];
-const entries = set ? [...(set.entries || [])].sort((a, b) => a.rank - b.rank) : [];
+const byRank = (a, b) => (a.rank ?? 999) - (b.rank ?? 999);
+const teams = set ? [...(set.entries || [])].sort(byRank).slice(0, 30) : [];
+const players = set ? [...(set.players || [])].sort(byRank).slice(0, 30) : [];
+const top5 = players.slice(0, 5);
+const rest = players.slice(5);
 const arrow = { up: '▲ Up', down: '▼ Down', same: 'Even' };
+const hex = (c) => (/^#[0-9a-f]{6}$/i.test(c || '') ? c : '#1647FF');
+const ink = (c) => {
+  const v = (i) => parseInt(c.slice(i, i + 2), 16);
+  return v(1) * 0.3 + v(3) * 0.6 + v(5) * 0.1 > 150 ? '#0C1330' : '#FFFFFF';
+};
+const tier = (r) => (r === 1 ? 'gold' : r === 2 ? 'silver' : r === 3 ? 'bronze' : 'blue');
+const yr = set ? new Date(set.week).getUTCFullYear().toString().slice(2) : '';
+const details = (p) => [p.position, p.school, p.classYear ? `Class of ${p.classYear}` : '', regionName(p.region)].filter(Boolean).join(', ');
 ---
-<Base title="Rankings" description="Louisiana high school football team rankings by region and LHSAA class.">
+<Base title="Rankings" description="Louisiana high school football rankings: the top 30 schools and the top 30 players in the state, updated weekly.">
 <section class="pg"><div class="wrap">
-<div class="head"><span class="kick">Rankings</span><h1>{set ? set.title : 'Rankings'}</h1>{set && <p class="muted">Week of {fmt(set.week)}</p>}</div>
+<div class="head"><span class="kick">Rankings</span><h1>{set ? set.title : 'Rankings'}</h1>{set && <p class="muted">Week of {fmt(set.week)}. Updated every week.</p>}</div>
+
+<div class="rtabs" role="tablist" aria-label="Ranking type">
+  <button role="tab" id="tab-schools" aria-controls="panel-schools" aria-selected="true" class="rtab on" data-tab="schools">Top 30 Schools</button>
+  <button role="tab" id="tab-players" aria-controls="panel-players" aria-selected="false" class="rtab" data-tab="players" tabindex="-1">Top 30 Players</button>
+</div>
+
 <div class="chips" id="rc" role="group" aria-label="Filter by region"><button class="chip on" data-v="all">All regions</button>{regions.map((r) => <button class="chip" data-v={r.id}>{r.label}</button>)}</div>
-<div id="rl">{entries.map((t) => <div class="rrow" data-region={t.region}><span class="rk">{t.rank}</span><div><h3>{t.team}</h3><p>{regionName(t.region)}{t.classification ? `, Class ${t.classification}` : ''}{t.record ? `, ${t.record}` : ''}</p>{t.blurb ? <p>{t.blurb}</p> : null}</div><span class={`mv ${t.move || 'same'}`}>{arrow[t.move] || 'Even'}</span></div>)}</div>
-{entries.length === 0 && <p class="muted">Rankings are coming soon.</p>}
+
+<div role="tabpanel" id="panel-schools" aria-labelledby="tab-schools" class="rpanel">
+  <div class="rl">{teams.map((t) => <div class="rrow" data-region={t.region}><span class="rk">{t.rank}</span><div><h3>{t.team}</h3><p>{regionName(t.region)}{t.classification ? `, Class ${t.classification}` : ''}{t.record ? `, ${t.record}` : ''}</p>{t.blurb ? <p>{t.blurb}</p> : null}</div><span class={`mv ${t.move || 'same'}`}>{arrow[t.move] || 'Even'}</span></div>)}</div>
+  {teams.length === 0 && <p class="muted">School rankings are coming soon.</p>}
+</div>
+
+<div role="tabpanel" id="panel-players" aria-labelledby="tab-players" class="rpanel" hidden>
+  {top5.length > 0 && <>
+    <div class="cards-head"><h2>The Top 5</h2><p class="muted">Tap a card to flip it for the player's stats.</p></div>
+    <ol class="cards">
+      {top5.map((p) => {
+        const c = hex(p.color);
+        const t = ink(c);
+        const showPhoto = p.image && p.permission === true;
+        return (
+          <li class="cslot" data-region={p.region}>
+            <button type="button" class={`scard ${tier(p.rank)}`} style={`--sc:${c};--si:${t}`} aria-pressed="false" aria-label={`Number ${p.rank}, ${p.name}, ${details(p)}. Flip card for stats.`}>
+              <span class="sc-flip">
+                <span class="sc-face sc-front" aria-hidden="true">
+                  <span class="sc-art">
+                    {showPhoto
+                      ? <img src={p.image} alt="" loading="lazy" />
+                      : <span class="sc-ph"><span class="sc-num">{p.number || p.rank}</span><span class="sc-jer" set:html={jerseySvg(c, p.number)} /></span>}
+                  </span>
+                  <span class="sc-rank"><small>No.</small>{p.rank}</span>
+                  {p.position && <span class="sc-pos">{p.position}</span>}
+                  <span class="sc-brand">Blue 42 · '{yr}</span>
+                  <span class="sc-plate">
+                    <span class="sc-name">{p.name}</span>
+                    <span class="sc-sub">{p.school}{p.classYear ? ` · ${p.classYear}` : ''}</span>
+                  </span>
+                </span>
+                <span class="sc-face sc-back" aria-hidden="true">
+                  <span class="sc-bhead"><span class="sc-brank">#{p.rank}</span><span><b>{p.name}</b><em>{p.school}</em></span></span>
+                  <span class="sc-grid">
+                    <span><i>Pos</i>{p.position || '-'}</span>
+                    <span><i>No.</i>{p.number || '-'}</span>
+                    <span><i>Class</i>{p.classYear || '-'}</span>
+                    <span><i>Ht</i>{p.height || '-'}</span>
+                    <span><i>Wt</i>{p.weight || '-'}</span>
+                    <span><i>Move</i>{arrow[p.move] || 'Even'}</span>
+                  </span>
+                  {p.stats && <span class="sc-stats"><i>Season</i>{p.stats}</span>}
+                  {p.blurb && <span class="sc-blurb">{p.blurb}</span>}
+                  <span class="sc-foot">{regionName(p.region)} · Week of {fmt(set.week)}</span>
+                </span>
+              </span>
+            </button>
+          </li>
+        );
+      })}
+    </ol>
+  </>}
+  {rest.length > 0 && <div class="rl">{rest.map((p) => <div class="rrow" data-region={p.region}><span class="rk">{p.rank}</span><div><h3>{p.name}</h3><p>{details(p)}</p>{p.stats ? <p>{p.stats}</p> : null}{p.blurb ? <p>{p.blurb}</p> : null}</div><span class={`mv ${p.move || 'same'}`}>{arrow[p.move] || 'Even'}</span></div>)}</div>}
+  {players.length === 0 && <p class="muted">Player rankings are coming soon.</p>}
+</div>
+<p class="muted none" id="none" hidden>No one from this region is ranked this week.</p>
 </div></section>
 <script is:inline>
-var c=document.getElementById('rc');c.onclick=function(e){var v=e.target.dataset&&e.target.dataset.v;if(!v)return;[].forEach.call(c.children,function(b){b.classList.toggle('on',b.dataset.v===v)});document.querySelectorAll('#rl .rrow').forEach(function(r){r.hidden=!(v==='all'||r.dataset.region===v)})}
+(function(){
+var tabs=[].slice.call(document.querySelectorAll('.rtab')),c=document.getElementById('rc'),none=document.getElementById('none'),region='all';
+function active(){return document.querySelector('.rpanel:not([hidden])')}
+function filter(){var p=active(),shown=0;p.querySelectorAll('[data-region]').forEach(function(r){var ok=region==='all'||r.dataset.region===region;r.hidden=!ok;if(ok)shown++});none.hidden=shown>0||region==='all'}
+function show(name,focus){tabs.forEach(function(t){var on=t.dataset.tab===name;t.classList.toggle('on',on);t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;document.getElementById('panel-'+t.dataset.tab).hidden=!on;if(on&&focus)t.focus()});filter()}
+tabs.forEach(function(t,i){t.onclick=function(){show(t.dataset.tab);history.replaceState(null,'','#'+t.dataset.tab)};t.onkeydown=function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){e.preventDefault();var n=tabs[(i+d+tabs.length)%tabs.length];show(n.dataset.tab,true);history.replaceState(null,'','#'+n.dataset.tab)}}});
+c.onclick=function(e){var v=e.target.dataset&&e.target.dataset.v;if(!v)return;region=v;[].forEach.call(c.children,function(b){b.classList.toggle('on',b.dataset.v===v)});filter()};
+if(location.hash==='#players')show('players');
+var still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+document.querySelectorAll('.scard').forEach(function(k){
+  k.onclick=function(){var f=k.classList.toggle('flipped');k.setAttribute('aria-pressed',f)};
+  if(still)return;
+  k.onpointermove=function(e){if(e.pointerType!=='mouse')return;var r=k.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;k.style.setProperty('--rx',((.5-y)*14)+'deg');k.style.setProperty('--ry',((x-.5)*16)+'deg');k.style.setProperty('--mx',(x*100)+'%');k.style.setProperty('--my',(y*100)+'%')};
+  k.onpointerleave=function(){k.style.setProperty('--rx','0deg');k.style.setProperty('--ry','0deg')};
+});
+})();
 </script>
 </Base>
