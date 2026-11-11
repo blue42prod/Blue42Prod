@@ -145,6 +145,7 @@ collections:
           - {label: Home headline, name: heroHeadline, widget: string}
           - {label: Home subheading, name: heroSubhead, widget: text}
           - {label: About page text, name: aboutText, widget: text}
+          - {label: "YouTube channel link (e.g. https://www.youtube.com/@yourchannel). Leave blank until the channel is live; the newest video then shows on Home and About automatically.", name: youtubeUrl, widget: string, required: false}
       - label: Photos of the Week
         name: photos-of-the-week
         file: src/content/settings/photos-of-the-week.json

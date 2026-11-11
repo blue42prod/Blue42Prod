@@ -1,0 +1,73 @@
+---
+// YouTube spot: channel link + the newest video (fetched live from the channel).
+// The channel link is set in the site admin (Settings → Site). Until it's set, a "coming soon" note shows.
+import { site } from '../lib/data.js';
+const url = String(site.youtubeUrl || '').trim();
+const { heading = 'Watch on YouTube' } = Astro.props;
+---
+<div class="yt" data-channel={url || undefined}>
+  <div class="yt-copy">
+    <span class="kick">Blue 42 on YouTube</span>
+    <h2>{heading}</h2>
+    {url ? (
+      <p class="muted yt-sub">Highlights, interviews, and game-day footage. Here’s our latest.</p>
+    ) : (
+      <p class="muted yt-sub">Our YouTube channel is coming soon with highlights, interviews, and game-day footage.</p>
+    )}
+    {url && <a class="pill" href={url} target="_blank" rel="noopener">Visit our channel</a>}
+  </div>
+  <div class="yt-media"><div class="yt-frame">
+    <div class="yt-empty"><svg viewBox="0 0 68 48" width="68" height="48" aria-hidden="true"><path d="M66.5 7.7A8.5 8.5 0 0 0 60.5 1.7C55.2.3 34 .3 34 .3S12.8.3 7.5 1.7A8.5 8.5 0 0 0 1.5 7.7C.1 13 .1 24 .1 24s0 11 1.4 16.3a8.5 8.5 0 0 0 6 6C12.8 47.7 34 47.7 34 47.7s21.2 0 26.5-1.4a8.5 8.5 0 0 0 6-6C67.9 35 67.9 24 67.9 24s0-11-1.4-16.3z" fill="currentColor" opacity=".35"/><path d="M45 24 27 14v20z" fill="currentColor"/></svg><span>{url ? 'Loading the latest video…' : 'Videos coming soon'}</span></div>
+  </div></div>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('.yt[data-channel]').forEach(async (el) => {
+    const frame = el.querySelector('.yt-frame') as HTMLElement;
+    const empty = frame.querySelector('.yt-empty span') as HTMLElement;
+    try {
+      const r = await fetch('/api/youtube-latest?channel=' + encodeURIComponent(el.dataset.channel || ''));
+      const { video } = await r.json();
+      if (!video || !/^[\w-]+$/.test(video.id)) { empty.textContent = 'New videos coming soon'; return; }
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'yt-play';
+      btn.setAttribute('aria-label', 'Play video: ' + video.title);
+      const img = document.createElement('img');
+      img.src = `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`;
+      img.alt = '';
+      img.loading = 'lazy';
+      const icon = document.createElement('span');
+      icon.className = 'yt-icon';
+      icon.setAttribute('aria-hidden', 'true');
+      btn.append(img, icon);
+      btn.onclick = () => {
+        const f = document.createElement('iframe');
+        f.src = `https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`;
+        f.title = video.title;
+        f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        f.allowFullscreen = true;
+        btn.replaceWith(f);
+      };
+      const cap = document.createElement('p');
+      cap.className = 'yt-title';
+      cap.textContent = video.title;
+      frame.replaceChildren(btn);
+      frame.after(cap);
+    } catch { empty.textContent = 'New videos coming soon'; }
+  });
+</script>
+<style>
+  .yt{display:grid;gap:2.5rem}
+  @media(min-width:900px){.yt{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:4rem;align-items:center}}
+  .yt-sub{margin:1.25rem 0 2rem;max-width:36ch}
+  .yt-frame{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,var(--r1),var(--r2))}
+  .yt-frame :global(iframe),.yt-frame :global(.yt-play){position:absolute;inset:0;width:100%;height:100%;border:0}
+  .yt-empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;color:var(--link);font-weight:700}
+  .yt-frame :global(.yt-play){padding:0;cursor:pointer;background:#000}
+  .yt-frame :global(.yt-play img){width:100%;height:100%;object-fit:cover;display:block}
+  .yt-frame :global(.yt-icon){position:absolute;left:50%;top:50%;width:76px;height:54px;margin:-27px 0 0 -38px;border-radius:14px;background:#FF0000;transition:transform .15s}
+  .yt-frame :global(.yt-icon)::after{content:'';position:absolute;left:31px;top:15px;border-style:solid;border-width:12px 0 12px 20px;border-color:transparent transparent transparent #fff}
+  .yt-frame :global(.yt-play:hover .yt-icon),.yt-frame :global(.yt-play:focus-visible .yt-icon){transform:scale(1.08)}
+  .yt :global(.yt-title){margin:1rem 0 0;font-weight:600}
+  .yt-media{min-width:0}
+</style>
