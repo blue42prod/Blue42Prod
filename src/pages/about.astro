@@ -1,9 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import YouTube from '../components/YouTube.astro';
 import { site } from '../lib/data.js';
 const paras = String(site.aboutText || '').split(/\n\s*\n/);
 ---
 <Base title="About" description="Blue 42 Productions is a Louisiana media outlet covering high school football with stories, photography, and polls.">
 <section class="pg"><div class="wrap prose"><h1 style="margin-bottom:2rem">About Blue 42</h1>{paras.map((p) => <p>{p}</p>)}
-<p>We publish players only with permission, and we remove any photo or mention on request.</p></div></section>
+<p>We publish players only with permission, and we remove any photo or mention on request.</p></div>
+<div class="wrap sp"><YouTube heading="See us in action." /></div></section>
 </Base>
