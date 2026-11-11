@@ -22,20 +22,15 @@ const details = (p) => [p.position, p.school, p.classYear ? `Class of ${p.classY
 <div class="head"><span class="kick">Rankings</span><h1>{set ? set.title : 'Rankings'}</h1>{set && <p class="muted">Week of {fmt(set.week)}. Updated every week.</p>}</div>
 
 <div class="rtabs" role="tablist" aria-label="Ranking type">
-  <button role="tab" id="tab-schools" aria-controls="panel-schools" aria-selected="true" class="rtab on" data-tab="schools">Top 30 Schools</button>
-  <button role="tab" id="tab-players" aria-controls="panel-players" aria-selected="false" class="rtab" data-tab="players" tabindex="-1">Top 30 Players</button>
+  <button role="tab" id="tab-players" aria-controls="panel-players" aria-selected="true" class="rtab on" data-tab="players">Top 30 Players</button>
+  <button role="tab" id="tab-schools" aria-controls="panel-schools" aria-selected="false" class="rtab" data-tab="schools" tabindex="-1">Top 30 Schools</button>
 </div>
 
 <div class="chips" id="rc" role="group" aria-label="Filter by region"><button class="chip on" data-v="all">All regions</button>{regions.map((r) => <button class="chip" data-v={r.id}>{r.label}</button>)}</div>
 
-<div role="tabpanel" id="panel-schools" aria-labelledby="tab-schools" class="rpanel">
-  <div class="rl">{teams.map((t) => <div class="rrow" data-region={t.region}><span class="rk">{t.rank}</span><div><h3>{t.team}</h3><p>{regionName(t.region)}{t.classification ? `, Class ${t.classification}` : ''}{t.record ? `, ${t.record}` : ''}</p>{t.blurb ? <p>{t.blurb}</p> : null}</div><span class={`mv ${t.move || 'same'}`}>{arrow[t.move] || 'Even'}</span></div>)}</div>
-  {teams.length === 0 && <p class="muted">School rankings are coming soon.</p>}
-</div>
-
-<div role="tabpanel" id="panel-players" aria-labelledby="tab-players" class="rpanel" hidden>
+<div role="tabpanel" id="panel-players" aria-labelledby="tab-players" class="rpanel">
   {top5.length > 0 && <>
-    <div class="cards-head"><h2>The Top 5</h2><p class="muted">Tap a card to flip it for the player's stats.</p></div>
+    <div class="cards-head"><h2>The Top 5</h2><p class="muted">Every one graded Gem Mint 10. Tap a slab to flip the card for stats.</p></div>
     <ol class="cards">
       {top5.map((p) => {
         const c = hex(p.color);
@@ -43,7 +38,24 @@ const details = (p) => [p.position, p.school, p.classYear ? `Class of ${p.classY
         const showPhoto = p.image && p.permission === true;
         return (
           <li class="cslot" data-region={p.region}>
-            <button type="button" class={`scard ${tier(p.rank)}`} style={`--sc:${c};--si:${t}`} aria-pressed="false" aria-label={`Number ${p.rank}, ${p.name}, ${details(p)}. Flip card for stats.`}>
+            <button type="button" class={`scard ${tier(p.rank)}`} style={`--sc:${c};--si:${t}`} aria-pressed="false" aria-label={`Number ${p.rank}, ${p.name}, ${details(p)}. Graded PSA Gem Mint 10. Flip card for stats.`}>
+              <span class="slab-label" aria-hidden="true">
+                <span class="sl-l">
+                  <span class="sl-set">20{yr} Blue 42 Top 30 #{p.rank}</span>
+                  <span class="sl-name">{p.name}</span>
+                  <span class="sl-sub">{[p.school, p.position].filter(Boolean).join(' · ')}</span>
+                </span>
+                <span class="sl-r">
+                  <span class="sl-gm">Gem Mt</span>
+                  <span class="sl-10">10</span>
+                </span>
+                <span class="sl-foot">
+                  <span class="sl-psa">PSA</span>
+                  <span class="sl-bar"></span>
+                  <span class="sl-cert">{`42${yr}${String(p.rank).padStart(2, '0')}${String((p.number || 0)).padStart(2, '0')}10`}</span>
+                </span>
+              </span>
+              <span class="slab-win">
               <span class="sc-flip">
                 <span class="sc-face sc-front" aria-hidden="true">
                   <span class="sc-art">
@@ -74,6 +86,7 @@ const details = (p) => [p.position, p.school, p.classYear ? `Class of ${p.classY
                   <span class="sc-foot">{regionName(p.region)} · Week of {fmt(set.week)}</span>
                 </span>
               </span>
+              </span>
             </button>
           </li>
         );
@@ -83,6 +96,11 @@ const details = (p) => [p.position, p.school, p.classYear ? `Class of ${p.classY
   {rest.length > 0 && <div class="rl">{rest.map((p) => <div class="rrow" data-region={p.region}><span class="rk">{p.rank}</span><div><h3>{p.name}</h3><p>{details(p)}</p>{p.stats ? <p>{p.stats}</p> : null}{p.blurb ? <p>{p.blurb}</p> : null}</div><span class={`mv ${p.move || 'same'}`}>{arrow[p.move] || 'Even'}</span></div>)}</div>}
   {players.length === 0 && <p class="muted">Player rankings are coming soon.</p>}
 </div>
+<div role="tabpanel" id="panel-schools" aria-labelledby="tab-schools" class="rpanel" hidden>
+  <div class="rl">{teams.map((t) => <div class="rrow" data-region={t.region}><span class="rk">{t.rank}</span><div><h3>{t.team}</h3><p>{regionName(t.region)}{t.classification ? `, Class ${t.classification}` : ''}{t.record ? `, ${t.record}` : ''}</p>{t.blurb ? <p>{t.blurb}</p> : null}</div><span class={`mv ${t.move || 'same'}`}>{arrow[t.move] || 'Even'}</span></div>)}</div>
+  {teams.length === 0 && <p class="muted">School rankings are coming soon.</p>}
+</div>
+
 <p class="muted none" id="none" hidden>No one from this region is ranked this week.</p>
 </div></section>
 <script is:inline>
@@ -93,7 +111,7 @@ function filter(){var p=active(),shown=0;p.querySelectorAll('[data-region]').for
 function show(name,focus){tabs.forEach(function(t){var on=t.dataset.tab===name;t.classList.toggle('on',on);t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;document.getElementById('panel-'+t.dataset.tab).hidden=!on;if(on&&focus)t.focus()});filter()}
 tabs.forEach(function(t,i){t.onclick=function(){show(t.dataset.tab);history.replaceState(null,'','#'+t.dataset.tab)};t.onkeydown=function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){e.preventDefault();var n=tabs[(i+d+tabs.length)%tabs.length];show(n.dataset.tab,true);history.replaceState(null,'','#'+n.dataset.tab)}}});
 c.onclick=function(e){var v=e.target.dataset&&e.target.dataset.v;if(!v)return;region=v;[].forEach.call(c.children,function(b){b.classList.toggle('on',b.dataset.v===v)});filter()};
-if(location.hash==='#players')show('players');
+if(location.hash==='#schools')show('schools');
 var still=matchMedia('(prefers-reduced-motion:reduce)').matches;
 document.querySelectorAll('.scard').forEach(function(k){
   k.onclick=function(){var f=k.classList.toggle('flipped');k.setAttribute('aria-pressed',f)};
