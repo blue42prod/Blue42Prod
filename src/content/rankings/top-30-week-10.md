@@ -193,7 +193,7 @@ players:
     move: up
     region: new-orleans
     school: Brother Martin
-    classYear: "2026"
+    classYear: "2027"
     weight: "200"
     blurb: "Easton Royal is commited to Florida and an All American #1 WR"
     image: /uploads/img_3565.jpeg
