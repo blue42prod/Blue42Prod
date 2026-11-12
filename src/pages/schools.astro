@@ -1,0 +1,197 @@
+---
+import Base from '../layouts/Base.astro';
+import { schools, regions, regionName } from '../lib/data.js';
+const regionData = regions.map((r) => ({ id: r.id, name: r.name, label: r.label, bounds: r.bounds, count: schools.filter((s) => s.region === r.id).length }));
+const schoolData = schools.map((s) => ({
+  slug: s.slug, title: s.title, mascot: s.mascot || '', city: s.city || '', region: s.region, regionName: regionName(s.region),
+  lat: s.lat, lng: s.lng, classification: s.classification || '', color: /^#[0-9a-f]{6}$/i.test(s.color || '') ? s.color : '#1647FF',
+  logo: s.logo || '', founded: s.founded || '', enrollment: s.enrollment || '', coach: s.coach || '', stadium: s.stadium || '', record: s.record || '',
+  website: s.website || '', blurb: s.blurb || '', stats: s.stats, funFacts: s.funFacts, photos: s.photos.map((p) => ({ image: p.image, alt: p.alt || s.title, photographer: p.photographer || '' })),
+}));
+---
+<Base title="Schools" description="Explore Louisiana high school football programs on an interactive map. Pick a region, then hover a pin for school info, stats, fun facts, and photos.">
+<section class="pg sch-pg"><div class="wrap">
+<div class="head"><span class="kick">Schools</span><h1>Every school, on the map.</h1><p class="muted">Pick a region to fly in. Then hover over a pin (or tap it on your phone) for the school's info, stats, fun facts, and photos.</p></div>
+
+<div class="sch-steps">
+  <span class="sch-step" id="step-label"><b>1</b> Choose a region</span>
+  <div class="chips" id="sc" role="group" aria-label="Choose a region"><button class="chip on" data-v="all">All of Louisiana</button>{regionData.map((r) => <button class="chip" data-v={r.id}>{r.label}</button>)}</div>
+</div>
+
+<div class="sch-wrap">
+  <div id="schmap" class="sch-map" role="application" aria-label="Map of Louisiana high schools"></div>
+  <div id="schcard" class="sch-card" hidden role="dialog" aria-live="polite" aria-label="School details"></div>
+  <button id="schback" class="pill sch-back" type="button" hidden>&#8592; All regions</button>
+  <noscript><p class="sch-noscript">Turn on JavaScript to use the map. The school list below still works.</p></noscript>
+</div>
+
+<div class="sch-list-head"><h2 id="sch-rn">All of Louisiana</h2><p class="muted" id="sch-cnt"></p></div>
+<ul class="sch-list" id="schlist">
+  {schoolData.map((s) => (
+    <li data-region={s.region}>
+      <button type="button" class="sch-item" data-slug={s.slug} style={`--sc:${s.color}`}>
+        <span class="sch-dot" aria-hidden="true"></span>
+        <span><b>{s.title}</b><span class="muted">{[s.mascot, s.city, s.classification ? `Class ${s.classification}` : ''].filter(Boolean).join(' · ')}</span></span>
+      </button>
+    </li>
+  ))}
+</ul>
+{schoolData.length === 0 && <p class="muted">Schools are coming soon.</p>}
+<p class="note">Map data &copy; OpenStreetMap contributors &copy; CARTO. School pins are placed by Blue 42. Spot a mistake? <a class="lnk" href="/contact/">Let us know</a>.</p>
+</div></section>
+<script type="application/json" id="sch-data" set:html={JSON.stringify({ regions: regionData, schools: schoolData })}></script>
+<script>
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
+type Stat = { label: string; value?: string };
+type Photo = { image: string; alt: string; photographer: string };
+type School = { slug: string; title: string; mascot: string; city: string; region: string; regionName: string; lat: number; lng: number; classification: string; color: string; logo: string; founded: string; enrollment: string; coach: string; stadium: string; record: string; website: string; blurb: string; stats: Stat[]; funFacts: string[]; photos: Photo[] };
+type Region = { id: string; name: string; label: string; bounds: [[number, number], [number, number]]; count: number };
+
+const data = JSON.parse(document.getElementById('sch-data')!.textContent || '{}') as { regions: Region[]; schools: School[] };
+const el = document.getElementById('schmap')!;
+const card = document.getElementById('schcard')!;
+const back = document.getElementById('schback')!;
+const chips = document.getElementById('sc')!;
+const stepLabel = document.getElementById('step-label')!;
+const STATE: L.LatLngBoundsExpression = [[28.9, -94.05], [33.02, -88.8]];
+
+const esc = (v: unknown) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+const ink = (c: string) => { const v = (i: number) => parseInt(c.slice(i, i + 2), 16); return v(1) * 0.3 + v(3) * 0.6 + v(5) * 0.1 > 150 ? '#0C1330' : '#FFFFFF'; };
+const initials = (n: string) => n.replace(/\b(sample|high|school|hs|academy)\b/gi, '').trim().split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase() || '#';
+const isDark = () => { const t = document.documentElement.dataset.theme; return t ? t === 'dark' : matchMedia('(prefers-color-scheme:dark)').matches; };
+const tileUrl = () => `https://{s}.basemaps.cartocdn.com/${isDark() ? 'dark_all' : 'light_all'}/{z}/{x}/{y}{r}.png`;
+
+const map = L.map(el, { zoomSnap: 0.25, scrollWheelZoom: false, minZoom: 6, maxBounds: [[27.5, -96], [34.5, -87]] });
+const tiles = L.tileLayer(tileUrl(), { subdomains: 'abcd', maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>' }).addTo(map);
+new MutationObserver(() => tiles.setUrl(tileUrl())).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+map.on('click', () => map.scrollWheelZoom.enable());
+map.fitBounds(STATE);
+
+// Step 1: region buttons on the state view.
+const regionLayer = L.layerGroup().addTo(map);
+data.regions.forEach((r) => {
+  const center = L.latLngBounds(r.bounds).getCenter();
+  const icon = L.divIcon({ className: 'sch-rlab', html: `<span>${esc(r.label)}<i>${r.count} ${r.count === 1 ? 'school' : 'schools'}</i></span>`, iconSize: [0, 0] });
+  const m = L.marker(center, { icon, keyboard: true, title: r.name, riseOnHover: true }).addTo(regionLayer);
+  m.on('click', () => pick(r.id));
+});
+
+// Step 2: school pins for the chosen region.
+const pinLayer = L.layerGroup();
+const markers = new Map<string, L.Marker>();
+data.schools.forEach((s) => {
+  const icon = L.divIcon({ className: 'sch-pin', html: `<span style="--sc:${s.color};--si:${ink(s.color)}"><b>${esc(initials(s.title))}</b></span>`, iconSize: [34, 44], iconAnchor: [17, 42] });
+  const m = L.marker([s.lat, s.lng], { icon, title: s.title, keyboard: true, riseOnHover: true });
+  m.on('mouseover', () => { if (!pinned) open(s, false); });
+  m.on('mouseout', () => { if (!pinned) hideSoon(); });
+  m.on('click', () => open(s, true));
+  m.on('keypress', (e: any) => { if (e.originalEvent.key === 'Enter') open(s, true); });
+  markers.set(s.slug, m);
+});
+
+let current = 'all';
+let pinned = false;
+let shown: School | null = null;
+let hideTimer = 0;
+
+function pick(id: string) {
+  current = id;
+  closeCard();
+  [...chips.children].forEach((b) => b.classList.toggle('on', (b as HTMLElement).dataset.v === id));
+  let n = 0;
+  document.querySelectorAll<HTMLElement>('#schlist li').forEach((li) => { const ok = id === 'all' || li.dataset.region === id; li.hidden = !ok; if (ok) n++; });
+  const r = data.regions.find((x) => x.id === id);
+  document.getElementById('sch-rn')!.textContent = r ? r.name : 'All of Louisiana';
+  document.getElementById('sch-cnt')!.textContent = `${n} ${n === 1 ? 'school' : 'schools'}${id === 'all' ? '. Pick a region to see the pins.' : ''}`;
+  pinLayer.clearLayers();
+  if (!r) {
+    map.removeLayer(pinLayer); regionLayer.addTo(map); back.hidden = true;
+    stepLabel.innerHTML = '<b>1</b> Choose a region';
+    map.flyToBounds(STATE, { duration: 0.8 });
+    return;
+  }
+  map.removeLayer(regionLayer); pinLayer.addTo(map); back.hidden = false;
+  stepLabel.innerHTML = '<b>2</b> Hover or tap a pin';
+  const inRegion = data.schools.filter((s) => s.region === id);
+  inRegion.forEach((s) => markers.get(s.slug)!.addTo(pinLayer));
+  const bounds = inRegion.length ? L.latLngBounds(inRegion.map((s) => [s.lat, s.lng] as [number, number])).pad(0.35) : L.latLngBounds(r.bounds);
+  map.flyToBounds(bounds, { duration: 1, maxZoom: 11 });
+}
+
+function cardHtml(s: School) {
+  const photo = s.photos[0];
+  const facts = [['Record', s.record], ['Class', s.classification], ['Coach', s.coach], ['Stadium', s.stadium], ['Founded', s.founded], ['Enrollment', s.enrollment]].filter(([, v]) => v);
+  const hero = photo
+    ? `<img class="sch-hero" src="${esc(photo.image)}" alt="${esc(photo.alt)}">`
+    : `<span class="sch-hero sch-hero-ph" style="--sc:${s.color};--si:${ink(s.color)}">${s.logo ? `<img src="${esc(s.logo)}" alt="">` : `<b>${esc(initials(s.title))}</b>`}</span>`;
+  return `
+    <button type="button" class="sch-x" aria-label="Close" ${pinned ? '' : 'hidden'}>&times;</button>
+    <div class="sch-top" style="--sc:${s.color};--si:${ink(s.color)}">${hero}
+      ${photo && photo.photographer ? `<span class="sch-credit">Photo: ${esc(photo.photographer)}</span>` : ''}
+    </div>
+    <div class="sch-body">
+      <span class="sch-kick" style="--sc:${s.color}">${esc([s.mascot, s.regionName].filter(Boolean).join(' · '))}</span>
+      <h3>${esc(s.title)}</h3>
+      ${s.city ? `<p class="sch-city">${esc(s.city)}, Louisiana</p>` : ''}
+      ${facts.length ? `<dl class="sch-facts">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : ''}
+      ${s.stats.length ? `<div class="sch-stats">${s.stats.map((x) => `<span><b>${esc(x.value || '-')}</b>${esc(x.label)}</span>`).join('')}</div>` : ''}
+      ${s.funFacts.length ? `<div class="sch-fun"><span>Fun facts</span><ul>${s.funFacts.map((f) => `<li>${esc(f)}</li>`).join('')}</ul></div>` : ''}
+      ${s.photos.length > 1 ? `<div class="sch-thumbs">${s.photos.slice(0, 6).map((p, i) => `<button type="button" data-i="${i}" aria-label="Show photo ${i + 1}"${i === 0 ? ' class="on"' : ''}><img src="${esc(p.image)}" alt="" loading="lazy"></button>`).join('')}</div>` : ''}
+      ${s.blurb ? `<p class="sch-blurb">${esc(s.blurb)}</p>` : ''}
+      ${s.website ? `<a class="lnk" href="${esc(s.website)}" rel="noopener" target="_blank">School website &#8599;</a>` : ''}
+    </div>`;
+}
+
+function place(s: School) {
+  if (matchMedia('(max-width:640px)').matches) { card.style.left = ''; card.style.top = ''; return; }
+  const pt = map.latLngToContainerPoint([s.lat, s.lng]);
+  const W = el.clientWidth, H = el.clientHeight, cw = card.offsetWidth, ch = card.offsetHeight, gap = 26;
+  let x = pt.x + gap; if (x + cw > W - 12) x = pt.x - gap - cw; x = Math.max(12, Math.min(x, W - cw - 12));
+  let y = pt.y - ch / 2; y = Math.max(12, Math.min(y, H - ch - 12));
+  card.style.left = `${x}px`; card.style.top = `${y}px`;
+}
+
+function open(s: School, pin: boolean) {
+  clearTimeout(hideTimer);
+  pinned = pin; shown = s;
+  card.innerHTML = cardHtml(s);
+  card.hidden = false;
+  card.classList.toggle('pinned', pin);
+  markers.forEach((m, k) => m.getElement()?.classList.toggle('on', k === s.slug));
+  place(s);
+  card.querySelector('.sch-x')?.addEventListener('click', closeCard);
+  card.querySelectorAll<HTMLButtonElement>('.sch-thumbs button').forEach((b) => b.addEventListener('click', () => {
+    const p = s.photos[Number(b.dataset.i)]; const img = card.querySelector<HTMLImageElement>('img.sch-hero');
+    if (img && p) { img.src = p.image; img.alt = p.alt; }
+    const cr = card.querySelector('.sch-credit'); if (cr) cr.textContent = p && p.photographer ? `Photo: ${p.photographer}` : '';
+    card.querySelectorAll('.sch-thumbs button').forEach((x) => x.classList.toggle('on', x === b));
+  }));
+  card.querySelectorAll('img').forEach((img) => img.addEventListener('load', () => shown === s && place(s), { once: true }));
+  if (pin) (card.querySelector('.sch-x') as HTMLElement | null)?.focus({ preventScroll: true });
+}
+function hideSoon() { clearTimeout(hideTimer); hideTimer = window.setTimeout(closeCard, 180); }
+function closeCard() { clearTimeout(hideTimer); card.hidden = true; pinned = false; shown = null; markers.forEach((m) => m.getElement()?.classList.remove('on')); }
+
+card.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+card.addEventListener('mouseleave', () => { if (!pinned) hideSoon(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !card.hidden) closeCard(); });
+map.on('move zoom', () => { if (shown && !card.hidden) place(shown); });
+map.on('click', () => { if (pinned) closeCard(); });
+
+chips.addEventListener('click', (e) => { const v = (e.target as HTMLElement).dataset?.v; if (v) pick(v); });
+back.addEventListener('click', () => pick('all'));
+document.getElementById('schlist')!.addEventListener('click', (e) => {
+  const b = (e.target as HTMLElement).closest<HTMLElement>('.sch-item'); if (!b) return;
+  const s = data.schools.find((x) => x.slug === b.dataset.slug); if (!s) return;
+  if (current !== s.region) pick(s.region);
+  el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+  map.once('moveend', () => open(s, true));
+  map.flyTo([s.lat, s.lng], Math.max(map.getZoom(), 10), { duration: 0.8 });
+});
+
+const fromHash = location.hash.slice(1);
+pick(data.regions.some((r) => r.id === fromHash) ? fromHash : 'all');
+</script>
+</Base>

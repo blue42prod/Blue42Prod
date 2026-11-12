@@ -120,7 +120,7 @@ collections:
     fields:
       - {label: Title, name: title, widget: string}
       - {label: Week of, name: week, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
-      - label: Teams
+      - label: "Teams (top 42 schools in the state)"
         name: entries
         widget: list
         fields:
@@ -136,11 +136,11 @@ collections:
           - {label: "Football logo (shown for the top 5 schools)", name: logo, widget: image, required: false}
           - {label: "School color for the logo badge (like #1647FF)", name: color, widget: string, required: false}
           - {label: Short blurb, name: blurb, widget: text, required: false}
-      - label: "Players (top 30 in the state; ranks 1 to 5 show as sports cards)"
+      - label: "Players (top 42 in the state; ranks 1 to 5 show as sports cards)"
         name: players
         widget: list
         required: false
-        max: 30
+        max: 42
         summary: "#{{fields.rank}} {{fields.name}} ({{fields.school}})"
         fields:
           - {label: Rank, name: rank, widget: number, value_type: int}
@@ -162,6 +162,54 @@ collections:
           - {label: "Permission on file for the player photo (photo stays hidden unless checked)", name: permission, widget: boolean, default: false}
           - {label: Short blurb, name: blurb, widget: text, required: false}
 
+  - name: schools
+    label: Schools (map)
+    label_singular: School
+    folder: src/content/schools
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    summary: "{{title}} ({{city}})"
+    fields:
+      - {label: School name, name: title, widget: string}
+      - {label: Mascot, name: mascot, widget: string, required: false}
+      - {label: City, name: city, widget: string, required: false}
+      - label: Region
+        name: region
+        widget: select
+        options: [{label: North Louisiana, value: north}, {label: Central, value: central}, {label: Southwest, value: southwest}, {label: Acadiana, value: acadiana}, {label: Baton Rouge Area, value: baton-rouge}, {label: Northshore, value: northshore}, {label: Greater New Orleans, value: new-orleans}]
+      - {label: "Pin latitude (in Google Maps, right-click the school and copy the first number, like 31.3113)", name: lat, widget: number, value_type: float}
+      - {label: "Pin longitude (the second number, like -92.4451)", name: lng, widget: number, value_type: float}
+      - {label: LHSAA class, name: classification, widget: string, required: false}
+      - {label: "School color for the pin (like #1647FF)", name: color, widget: string, required: false}
+      - {label: "Football logo (shown when there is no photo)", name: logo, widget: image, required: false}
+      - {label: Season record, name: record, widget: string, required: false}
+      - {label: Head coach, name: coach, widget: string, required: false}
+      - {label: Stadium, name: stadium, widget: string, required: false}
+      - {label: Year founded, name: founded, widget: string, required: false}
+      - {label: Enrollment, name: enrollment, widget: string, required: false}
+      - label: "Stats (like State titles: 3)"
+        name: stats
+        widget: list
+        required: false
+        summary: "{{fields.label}}: {{fields.value}}"
+        fields:
+          - {label: Stat name, name: label, widget: string}
+          - {label: Value, name: value, widget: string}
+      - {label: Fun facts, name: funFacts, widget: list, required: false}
+      - label: Photos of the school or team
+        name: photos
+        widget: list
+        required: false
+        fields:
+          - {label: Photo, name: image, widget: image}
+          - {label: Photo description (alt text), name: alt, widget: string}
+          - {label: Creator credit, name: photographer, widget: string, required: false}
+          - {label: "Permission on file (photo stays hidden unless checked)", name: permission, widget: boolean, default: false}
+      - {label: Short description, name: blurb, widget: text, required: false}
+      - {label: School website, name: website, widget: string, required: false}
+
   - name: settings
     label: Site text
     files:
@@ -174,6 +222,24 @@ collections:
           - {label: Home subheading, name: heroSubhead, widget: text}
           - {label: About page text, name: aboutText, widget: text}
           - {label: "YouTube channel link (e.g. https://www.youtube.com/@yourchannel). Leave blank until the channel is live; the newest video then shows on Home and About automatically.", name: youtubeUrl, widget: string, required: false}
+      - label: Homepage carousel
+        name: home-carousel
+        file: src/content/settings/home-carousel.json
+        format: json
+        fields:
+          - {label: "Shuffle the photo order on every visit (the logo always shows first)", name: shuffle, widget: boolean, default: true}
+          - {label: Seconds per slide, name: seconds, widget: number, value_type: int, default: 8, min: 2, max: 15}
+          - label: "Photos (up to 20)"
+            name: photos
+            widget: list
+            max: 20
+            summary: "{{fields.caption}}"
+            fields:
+              - {label: Photo, name: image, widget: image, required: false}
+              - {label: Caption, name: caption, widget: string, required: false}
+              - {label: Photo description (alt text), name: alt, widget: string}
+              - {label: Creator (credit shown on the photo), name: photographer, widget: string, required: false}
+              - {label: "Permission on file (photo stays hidden unless checked)", name: permission, widget: boolean, default: false}
       - label: Photos of the Week
         name: photos-of-the-week
         file: src/content/settings/photos-of-the-week.json

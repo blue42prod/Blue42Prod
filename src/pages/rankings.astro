@@ -3,8 +3,8 @@ import Base from '../layouts/Base.astro';
 import { rankingSets, regions, regionName, fmt, jerseySvg } from '../lib/data.js';
 const set = rankingSets[0];
 const byRank = (a, b) => (a.rank ?? 999) - (b.rank ?? 999);
-const teams = set ? [...(set.entries || [])].sort(byRank).slice(0, 30) : [];
-const players = set ? [...(set.players || [])].sort(byRank).slice(0, 30) : [];
+const teams = set ? [...(set.entries || [])].sort(byRank).slice(0, 42) : [];
+const players = set ? [...(set.players || [])].sort(byRank).slice(0, 42) : [];
 const top5 = players.slice(0, 5);
 const topSchools = teams.slice(0, 5);
 const restSchools = teams.slice(5);
@@ -20,13 +20,13 @@ const tier = (r) => (r === 1 ? 'gold' : r === 2 ? 'silver' : r === 3 ? 'bronze' 
 const yr = set ? new Date(set.week).getUTCFullYear().toString().slice(2) : '';
 const details = (p) => [p.position, p.school, p.classYear ? `Class of ${p.classYear}` : '', regionName(p.region)].filter(Boolean).join(', ');
 ---
-<Base title="Rankings" description="Louisiana high school football rankings: the top 30 schools and the top 30 players in the state, updated weekly.">
+<Base title="Rankings" description="Louisiana high school football rankings: the top 42 schools and the top 42 players in the state, updated weekly.">
 <section class="pg"><div class="wrap">
 <div class="head"><span class="kick">Rankings</span><h1>{set ? set.title : 'Rankings'}</h1>{set && <p class="muted">Week of {fmt(set.week)}. Updated every week.</p>}</div>
 
 <div class="rtabs" role="tablist" aria-label="Ranking type">
-  <button role="tab" id="tab-players" aria-controls="panel-players" aria-selected="true" class="rtab on" data-tab="players">Top 30 Players</button>
-  <button role="tab" id="tab-schools" aria-controls="panel-schools" aria-selected="false" class="rtab" data-tab="schools" tabindex="-1">Top 30 Schools</button>
+  <button role="tab" id="tab-players" aria-controls="panel-players" aria-selected="true" class="rtab on" data-tab="players">Top 42 Players</button>
+  <button role="tab" id="tab-schools" aria-controls="panel-schools" aria-selected="false" class="rtab" data-tab="schools" tabindex="-1">Top 42 Schools</button>
 </div>
 
 <div class="chips" id="rc" role="group" aria-label="Filter by region"><button class="chip on" data-v="all">All regions</button>{regions.map((r) => <button class="chip" data-v={r.id}>{r.label}</button>)}</div>
@@ -44,7 +44,7 @@ const details = (p) => [p.position, p.school, p.classYear ? `Class of ${p.classY
             <button type="button" class={`scard ${tier(p.rank)}`} style={`--sc:${c};--si:${t}`} aria-pressed="false" aria-label={`Number ${p.rank}, ${p.name}, ${details(p)}. Graded PSA Gem Mint 10. Flip card for stats.`}>
               <span class="slab-label" aria-hidden="true">
                 <span class="sl-l">
-                  <span class="sl-set">20{yr} Blue 42 Top 30 #{p.rank}</span>
+                  <span class="sl-set">20{yr} Blue 42 Top 42 #{p.rank}</span>
                   <span class="sl-name">{p.name}</span>
                   <span class="sl-sub">{[p.school, p.position].filter(Boolean).join(' · ')}</span>
                 </span>

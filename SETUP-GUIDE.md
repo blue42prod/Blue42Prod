@@ -29,14 +29,16 @@ Unzip `blue42-decap.zip` on your computer. You will upload the files inside the 
 5. If a screen is named differently, search "Decap CMS GitHub backend Netlify" for the current steps.
 
 ## 6. Log in and edit
-Go to `your-site-address/admin` and click Login with GitHub. You will see: Stories, Creators, Photo galleries (one per game), Polls, Rankings, and Site text. Click one, click New (or open an existing item), fill in the form, click Publish. The site updates in about a minute.
+Go to `your-site-address/admin` and click Login with GitHub. You will see: Stories, Creators, Photo galleries (one per game), Polls, Rankings, Schools (map), and Site text. Click one, click New (or open an existing item), fill in the form, click Publish. The site updates in about a minute.
 
 ## Your weekly routine
 - Polls: add a new poll with its options and set Status to Open. Set last week's poll to Closed and type the Winner so it appears in Past winners.
 - Stories: add recaps and features. Tick "Story of the week" on one story (untick the old one) and "Show in the Stories of the week list" on up to five.
 - Photo galleries: make one gallery per game. Enter the game name, date, school, and the creator credit, then add as many photos as you like (upload, alt text, tick Permission on file). Only fill in a creator on a single photo if someone else shot it. Photos without permission stay hidden.
 - Photos of the Week: open Site text, then Photos of the Week. Set the week date and pick up to 5 photos in order (#1 is shown biggest). Tick Permission on file for each one.
-- Rankings: duplicate last week's ranking or add a new one with the new date. Each week has two lists: Teams (top 30 schools) and Players (top 30 players). The newest week shows on the site. Players ranked 1 to 5 appear as sports cards: add a tall player photo, tick Permission on file, and set the school color so the card matches their school.
+- Rankings: duplicate last week's ranking or add a new one with the new date. Each week has two lists: Teams (top 42 schools) and Players (top 42 players). The newest week shows on the site. Players ranked 1 to 5 appear as sports cards: add a tall player photo, tick Permission on file, and set the school color so the card matches their school.
+- Homepage carousel: open Site text, then Homepage carousel. Add up to 20 photos (tick Permission on file for each). The white Blue 42 logo is always the first card, then the photos shuffle into a new order on every visit. The previous and next photos peek out halfway on either side, and the carousel moves on by itself every 8 seconds (there are no arrows or counter). You can turn shuffle off and set how many seconds each slide shows.
+- Schools map: open Schools (map) and add one entry per school. Pick its region, then paste the pin location. In Google Maps, right-click the school and click the numbers at the top to copy them: the first number is latitude, the second is longitude. Add stats, fun facts, and photos. They show in the card when someone hovers over the pin.
 - Replace every "Sample" item with real ones, or delete it. Open an item and use Delete entry.
 
 ## Rules for players (they are minors)
