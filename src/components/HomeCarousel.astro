@@ -6,7 +6,7 @@ const total = photos.length + 1;
 <section class="hc" id="hc" aria-roledescription="carousel" aria-label="Blue 42 Productions photos" data-shuffle={shuffle ? '1' : '0'} data-seconds={seconds}>
   <div class="hc-stage" id="hc-stack">
     <figure class="hc-card hc-logo" data-cap="" data-by="">
-      <img src="/logo-white-bg.png" alt="Blue 42 Productions" width="225" height="225" />
+      <img class="lgl" src="/logo-light.png" alt="Blue 42 Productions" width="600" height="600" /><img class="lgd" src="/logo-dark.png" alt="Blue 42 Productions" width="600" height="600" />
     </figure>
     {photos.map((p, i) => (
       <figure class="hc-card" data-cap={p.caption || ''} data-by={p.photographer || ''} aria-hidden="true">

@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-const { title, description, type = 'website', image = '/logo-blue-bg.jpg', schema } = Astro.props;
+const { title, description, type = 'website', image = '/logo-dark.png', schema } = Astro.props;
 const full = title === 'Home' ? 'Blue 42 Productions | Louisiana High School Football' : `${title} | Blue 42 Productions`;
 const url = new URL(Astro.url.pathname, Astro.site);
 const nav = [['Stories', '/stories/'], ['Photos', '/photos/'], ['Creators', '/creators/'], ['Polls', '/polls/'], ['Rankings', '/rankings/'], ['Schools', '/schools/'], ['Shop', '/shop/'], ['About', '/about/'], ['Contact', '/contact/']];
@@ -10,7 +10,7 @@ const nav = [['Stories', '/stories/'], ['Photos', '/photos/'], ['Creators', '/cr
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{full}</title><meta name="description" content={description}>
-<link rel="canonical" href={url}><link rel="icon" href="/logo-blue-bg.jpg">
+<link rel="canonical" href={url}><link rel="icon" href="/logo-light.png" media="(prefers-color-scheme: light)"><link rel="icon" href="/logo-dark.png" media="(prefers-color-scheme: dark)"><link rel="apple-touch-icon" href="/logo-dark.png">
 <meta property="og:title" content={full}><meta property="og:description" content={description}><meta property="og:type" content={type}><meta property="og:url" content={url}><meta property="og:image" content={new URL(image, Astro.site)}>
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,12 +21,13 @@ const nav = [['Stories', '/stories/'], ['Photos', '/photos/'], ['Creators', '/cr
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header><div class="wrap bar">
-<a class="brand" href="/" aria-label="Blue 42 Productions home"><img class="lgl" src="/logo-white-bg.png" alt="Blue 42 Productions" width="64" height="64"><img class="lgd" src="/logo-blue-bg.jpg" alt="Blue 42 Productions" width="64" height="64"></a>
+<a class="brand" href="/" aria-label="Blue 42 Productions home"><img class="lgl" src="/logo-light.png" alt="Blue 42 Productions" width="64" height="64"><img class="lgd" src="/logo-dark.png" alt="Blue 42 Productions" width="64" height="64"></a>
 <nav aria-label="Main">{nav.map(([n, h]) => <a href={h} aria-current={Astro.url.pathname.startsWith(h) ? 'page' : undefined}>{n}</a>)}</nav>
 <button id="theme" class="pill line" type="button" aria-label="Switch light or dark mode">Light / Dark</button>
 </div></header>
+<script is:inline>(function(){var h=document.querySelector('header');if(!h)return;function s(){document.documentElement.style.setProperty('--hh',h.offsetHeight+'px')}s();if(window.ResizeObserver)new ResizeObserver(s).observe(h);else addEventListener('resize',s)})();</script>
 <main id="main"><slot /></main>
-<footer><div class="wrap"><img src="/logo-blue-bg.jpg" alt="" width="44" height="44" style="border-radius:10px;margin-bottom:1rem">
+<footer><div class="wrap"><img class="lgl" src="/logo-light.png" alt="" width="44" height="44" style="border-radius:10px;margin-bottom:1rem"><img class="lgd" src="/logo-dark.png" alt="" width="44" height="44" style="border-radius:10px;margin-bottom:1rem">
 <p>Blue 42 Productions. Louisiana high school football, told like a magazine.</p>
 <p>Designed and developed by Ben Tannehill</p>
 <p>Players are minors. See something that should come down? <a href="/contact/?topic=removal">Request removal</a>.</p></div></footer>

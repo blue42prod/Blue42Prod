@@ -7,7 +7,7 @@ media_folder: public/uploads
 public_folder: /uploads
 publish_mode: simple
 site_url: https://blue42prod.com
-logo_url: /logo-white-bg.png
+logo_url: /logo-light.png
 
 collections:
   - name: stories
@@ -120,7 +120,7 @@ collections:
     fields:
       - {label: Title, name: title, widget: string}
       - {label: Week of, name: week, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
-      - label: "Teams (top 42 schools in the state)"
+      - label: "Teams (the top 42 by rank show on the main list; add more to fill each division up to 42)"
         name: entries
         widget: list
         fields:
@@ -131,21 +131,24 @@ collections:
             widget: select
             options: [{label: North Louisiana, value: north}, {label: Central, value: central}, {label: Southwest, value: southwest}, {label: Acadiana, value: acadiana}, {label: Baton Rouge Area, value: baton-rouge}, {label: Northshore, value: northshore}, {label: Greater New Orleans, value: new-orleans}]
           - {label: LHSAA class, name: classification, widget: string, required: false}
+          - {label: "LHSAA division (for the division rankings)", name: division, widget: select, required: false, options: [{label: Division I, value: I}, {label: Division II, value: II}, {label: Division III, value: III}, {label: Division IV, value: IV}]}
+          - {label: "Select or non-select", name: selectStatus, widget: select, required: false, options: [{label: Select, value: select}, {label: Non-select, value: non-select}]}
           - {label: Record, name: record, widget: string, required: false}
           - {label: Movement, name: move, widget: select, options: [{label: Up, value: up}, {label: Down, value: down}, {label: No change, value: same}], default: same}
           - {label: "Football logo (shown for the top 5 schools)", name: logo, widget: image, required: false}
           - {label: "School color for the logo badge (like #1647FF)", name: color, widget: string, required: false}
           - {label: Short blurb, name: blurb, widget: text, required: false}
-      - label: "Players (top 42 in the state; ranks 1 to 5 show as sports cards)"
+      - label: "Players (the top 42 by rank show on the main list; ranks 1 to 5 show as sports cards; add more to fill each division up to 42)"
         name: players
         widget: list
         required: false
-        max: 42
         summary: "#{{fields.rank}} {{fields.name}} ({{fields.school}})"
         fields:
           - {label: Rank, name: rank, widget: number, value_type: int}
           - {label: Player name, name: name, widget: string}
           - {label: School, name: school, widget: string}
+          - {label: "LHSAA division (leave blank to use the school's division from the Teams list)", name: division, widget: select, required: false, options: [{label: Division I, value: I}, {label: Division II, value: II}, {label: Division III, value: III}, {label: Division IV, value: IV}]}
+          - {label: "Select or non-select (leave blank to use the school's)", name: selectStatus, widget: select, required: false, options: [{label: Select, value: select}, {label: Non-select, value: non-select}]}
           - {label: "Position (like QB, RB, WR, LB)", name: position, widget: string, required: false}
           - {label: "Class (like 2027 or Jr.)", name: classYear, widget: string, required: false}
           - label: Region
