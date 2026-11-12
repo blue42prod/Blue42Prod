@@ -6,252 +6,336 @@ entries:
     team: Sample Cypress High
     region: north
     classification: 5A
+    division: I
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 1
     team: Sample Bayou High
     region: acadiana
     classification: 5A
+    division: I
+    selectStatus: non-select
     move: up
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 3
     team: Sample Pelican High
     region: new-orleans
     classification: 4A
+    division: II
+    selectStatus: non-select
     move: down
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 4
     team: Sample Magnolia High
     region: baton-rouge
     classification: 4A
+    division: II
+    selectStatus: non-select
     move: up
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 5
     team: Sample Delta High
     region: southwest
     classification: 3A
+    division: III
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 6
     team: Sample Crescent High
     region: north
     classification: Select
+    division: I
+    selectStatus: select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 7
     team: Sample Levee High
     region: northshore
     classification: 2A
+    division: IV
+    selectStatus: non-select
     move: up
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 8
     team: Sample Prairie High
     region: acadiana
     classification: 1A
+    division: IV
+    selectStatus: non-select
     move: down
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 9
     team: Sample Pinewood High
     region: central
     classification: 5A
+    division: I
+    selectStatus: non-select
     move: up
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 10
     team: Sample Riverbend High
     region: baton-rouge
     classification: 5A
+    division: I
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 11
     team: Sample Lantern High
     region: new-orleans
     classification: 4A
+    division: II
+    selectStatus: non-select
     move: down
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 12
     team: Sample Marsh High
     region: north
     classification: 4A
+    division: II
+    selectStatus: non-select
     move: up
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 13
     team: Sample Bluff High
     region: acadiana
     classification: 3A
+    division: III
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 14
     team: Sample Cotton High
     region: southwest
     classification: Select
+    division: II
+    selectStatus: select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 15
     team: Sample Sugarcane High
     region: baton-rouge
     classification: 2A
+    division: IV
+    selectStatus: non-select
     move: up
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 16
     team: Sample Oakridge High
     region: central
     classification: 1A
+    division: IV
+    selectStatus: non-select
     move: down
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 17
     team: Sample Saltwater High
     region: northshore
     classification: 5A
+    division: I
+    selectStatus: non-select
     move: up
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 18
     team: Sample Harbor High
     region: acadiana
     classification: 5A
+    division: I
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 19
     team: Sample Lakeshore High
     region: north
     classification: 4A
+    division: II
+    selectStatus: non-select
     move: down
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 20
     team: Sample Evergreen High
     region: new-orleans
     classification: 4A
+    division: II
+    selectStatus: non-select
     move: up
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 21
     team: Sample Heron High
     region: baton-rouge
     classification: 3A
+    division: III
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 22
     team: Sample Gulfview High
     region: acadiana
     classification: Select
+    division: III
+    selectStatus: select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 23
     team: Sample Camellia High
     region: southwest
     classification: 2A
+    division: IV
+    selectStatus: non-select
     move: up
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 24
     team: Sample Canebrake High
     region: north
     classification: 1A
+    division: IV
+    selectStatus: non-select
     move: down
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 25
     team: Sample Honeysuckle High
     region: central
     classification: 5A
+    division: I
+    selectStatus: non-select
     move: up
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 26
     team: Sample Ironwood High
     region: northshore
     classification: 5A
+    division: I
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 27
     team: Sample Moss High
     region: acadiana
     classification: 4A
+    division: II
+    selectStatus: non-select
     move: down
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 28
     team: Sample Redstick High
     region: north
     classification: 4A
+    division: II
+    selectStatus: non-select
     move: up
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 29
     team: Sample Shrimper High
     region: new-orleans
     classification: 3A
+    division: III
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 30
     team: Sample Tidewater High
     region: baton-rouge
     classification: Select
+    division: IV
+    selectStatus: select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 31
     team: Sample Oakridge High
     region: north
     classification: 5A
+    division: I
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 32
     team: Sample Bluewater High
     region: central
     classification: 4A
+    division: II
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 33
     team: Sample Cane Field High
     region: southwest
     classification: 3A
+    division: III
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 34
     team: Sample Lakeshore High
     region: acadiana
     classification: 2A
+    division: IV
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 35
     team: Sample Ironwood High
     region: baton-rouge
     classification: 1A
+    division: IV
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 36
     team: Sample Willow Bend High
     region: northshore
     classification: Select
+    division: I
+    selectStatus: select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 37
     team: Sample Red River High
     region: new-orleans
     classification: 5A
+    division: I
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 38
     team: Sample Harbor High
     region: north
     classification: 4A
+    division: II
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 39
     team: Sample Timberline High
     region: central
     classification: 3A
+    division: III
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 40
     team: Sample Gulf Coast High
     region: southwest
     classification: 2A
+    division: IV
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 41
     team: Sample Sabine High
     region: acadiana
     classification: 1A
+    division: IV
+    selectStatus: non-select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 42
     team: Sample Marsh Point High
     region: baton-rouge
     classification: Select
+    division: II
+    selectStatus: select
     move: same
     blurb: Sample blurb. Replace with the real team and your write-up.
 players:
@@ -312,6 +396,8 @@ players:
     move: same
     region: southwest
     school: Sample High D
+    division: I
+    selectStatus: non-select
     classYear: "2027"
     weight: "208"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -326,6 +412,8 @@ players:
     move: up
     region: central
     school: Sample High E
+    division: II
+    selectStatus: non-select
     classYear: "2027"
     weight: "215"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -340,6 +428,8 @@ players:
     move: same
     region: northshore
     school: Sample High F
+    division: III
+    selectStatus: non-select
     classYear: "2028"
     weight: "222"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -354,6 +444,8 @@ players:
     move: down
     region: acadiana
     school: Sample High G
+    division: IV
+    selectStatus: non-select
     classYear: "2027"
     weight: "229"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -368,6 +460,8 @@ players:
     move: up
     region: north
     school: Sample High H
+    division: I
+    selectStatus: select
     classYear: "2029"
     weight: "236"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -382,6 +476,8 @@ players:
     move: same
     region: new-orleans
     school: Sample High I
+    division: II
+    selectStatus: select
     classYear: "2027"
     weight: "243"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -396,6 +492,8 @@ players:
     move: up
     region: baton-rouge
     school: Sample High J
+    division: III
+    selectStatus: select
     classYear: "2027"
     weight: "250"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -410,6 +508,8 @@ players:
     move: same
     region: southwest
     school: Sample High K
+    division: IV
+    selectStatus: select
     classYear: "2028"
     weight: "257"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -424,6 +524,8 @@ players:
     move: down
     region: central
     school: Sample High L
+    division: I
+    selectStatus: non-select
     classYear: "2027"
     weight: "264"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -438,6 +540,8 @@ players:
     move: up
     region: northshore
     school: Sample High M
+    division: II
+    selectStatus: non-select
     classYear: "2029"
     weight: "181"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -452,6 +556,8 @@ players:
     move: same
     region: acadiana
     school: Sample High N
+    division: III
+    selectStatus: non-select
     classYear: "2027"
     weight: "188"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -466,6 +572,8 @@ players:
     move: up
     region: north
     school: Sample High O
+    division: IV
+    selectStatus: non-select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -480,6 +588,8 @@ players:
     move: same
     region: new-orleans
     school: Sample High P
+    division: I
+    selectStatus: select
     classYear: "2028"
     weight: "202"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -494,6 +604,8 @@ players:
     move: down
     region: baton-rouge
     school: Sample High Q
+    division: II
+    selectStatus: select
     classYear: "2027"
     weight: "209"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -508,6 +620,8 @@ players:
     move: up
     region: southwest
     school: Sample High R
+    division: III
+    selectStatus: select
     classYear: "2029"
     weight: "216"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -522,6 +636,8 @@ players:
     move: same
     region: central
     school: Sample High S
+    division: IV
+    selectStatus: select
     classYear: "2027"
     weight: "223"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -536,6 +652,8 @@ players:
     move: up
     region: northshore
     school: Sample High T
+    division: I
+    selectStatus: non-select
     classYear: "2027"
     weight: "230"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -550,6 +668,8 @@ players:
     move: same
     region: acadiana
     school: Sample High U
+    division: II
+    selectStatus: non-select
     classYear: "2028"
     weight: "237"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -564,6 +684,8 @@ players:
     move: down
     region: north
     school: Sample High V
+    division: III
+    selectStatus: non-select
     classYear: "2027"
     weight: "244"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -578,6 +700,8 @@ players:
     move: up
     region: new-orleans
     school: Sample High W
+    division: IV
+    selectStatus: non-select
     classYear: "2029"
     weight: "251"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -592,6 +716,8 @@ players:
     move: same
     region: baton-rouge
     school: Sample High X
+    division: I
+    selectStatus: select
     classYear: "2027"
     weight: "258"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -606,6 +732,8 @@ players:
     move: up
     region: southwest
     school: Sample High Y
+    division: II
+    selectStatus: select
     classYear: "2027"
     weight: "265"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -620,6 +748,8 @@ players:
     move: same
     region: central
     school: Sample High Z
+    division: III
+    selectStatus: select
     classYear: "2028"
     weight: "182"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -634,6 +764,8 @@ players:
     move: down
     region: northshore
     school: Sample High A
+    division: IV
+    selectStatus: select
     classYear: "2027"
     weight: "189"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -648,6 +780,8 @@ players:
     move: up
     region: acadiana
     school: Sample High B
+    division: I
+    selectStatus: non-select
     classYear: "2029"
     weight: "196"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -662,6 +796,8 @@ players:
     move: same
     region: north
     school: Sample High C
+    division: II
+    selectStatus: non-select
     classYear: "2027"
     weight: "203"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -676,6 +812,8 @@ players:
     move: up
     region: new-orleans
     school: Sample High D
+    division: III
+    selectStatus: non-select
     classYear: "2027"
     weight: "210"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -690,6 +828,8 @@ players:
     move: same
     region: north
     school: Sample High A
+    division: IV
+    selectStatus: non-select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -703,6 +843,8 @@ players:
     move: same
     region: central
     school: Sample High B
+    division: I
+    selectStatus: select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -716,6 +858,8 @@ players:
     move: same
     region: southwest
     school: Sample High C
+    division: II
+    selectStatus: select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -729,6 +873,8 @@ players:
     move: same
     region: acadiana
     school: Sample High D
+    division: III
+    selectStatus: select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -742,6 +888,8 @@ players:
     move: same
     region: baton-rouge
     school: Sample High E
+    division: IV
+    selectStatus: select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -755,6 +903,8 @@ players:
     move: same
     region: northshore
     school: Sample High F
+    division: I
+    selectStatus: non-select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -768,6 +918,8 @@ players:
     move: same
     region: new-orleans
     school: Sample High A
+    division: II
+    selectStatus: non-select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -781,6 +933,8 @@ players:
     move: same
     region: north
     school: Sample High B
+    division: III
+    selectStatus: non-select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -794,6 +948,8 @@ players:
     move: same
     region: central
     school: Sample High C
+    division: IV
+    selectStatus: non-select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -807,6 +963,8 @@ players:
     move: same
     region: southwest
     school: Sample High D
+    division: I
+    selectStatus: select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -820,6 +978,8 @@ players:
     move: same
     region: acadiana
     school: Sample High E
+    division: II
+    selectStatus: select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.
@@ -833,6 +993,8 @@ players:
     move: same
     region: baton-rouge
     school: Sample High F
+    division: III
+    selectStatus: select
     classYear: "2027"
     weight: "195"
     blurb: Sample blurb. Replace with the real player and your write-up.

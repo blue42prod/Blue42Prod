@@ -18,6 +18,15 @@ const ink = (c) => {
 };
 const tier = (r) => (r === 1 ? 'gold' : r === 2 ? 'silver' : r === 3 ? 'bronze' : 'blue');
 const yr = set ? new Date(set.week).getUTCFullYear().toString().slice(2) : '';
+const DIVS = ['I', 'II', 'III', 'IV'];
+const POOLS = [['non-select', 'Non-Select'], ['select', 'Select']];
+const normDiv = (d) => { const v = String(d ?? '').toUpperCase().replace(/^(DIVISION|DIV\.?|D)\s*/, '').trim(); return { 1: 'I', 2: 'II', 3: 'III', 4: 'IV' }[v] || (DIVS.includes(v) ? v : ''); };
+const normPool = (v) => (v === true || /^select$/i.test(String(v ?? '')) ? 'select' : v === false || /non/i.test(String(v ?? '')) ? 'non-select' : '');
+const allTeams = set ? [...(set.entries || [])].sort(byRank).map((t) => ({ ...t, div: normDiv(t.division), pool: normPool(t.selectStatus) || (/^select$/i.test(t.classification || '') ? 'select' : '') })) : [];
+const teamBy = new Map(allTeams.map((t) => [String(t.team || '').trim().toLowerCase(), t]));
+const allPlayers = set ? [...(set.players || [])].sort(byRank).map((p) => { const t = teamBy.get(String(p.school || '').trim().toLowerCase()) || {}; return { ...p, div: normDiv(p.division) || t.div || '', pool: normPool(p.selectStatus) || t.pool || '' }; }) : [];
+const divList = (list, d, pool) => list.filter((x) => x.div === d && x.pool === pool).slice(0, 42);
+const poolName = (pool) => (pool === 'select' ? 'Select' : 'Non-Select');
 const details = (p) => [p.position, p.school, p.classYear ? `Class of ${p.classYear}` : '', regionName(p.region)].filter(Boolean).join(', ');
 ---
 <Base title="Rankings" description="Louisiana high school football rankings: the top 42 schools and the top 42 players in the state, updated weekly.">
@@ -96,8 +105,26 @@ const details = (p) => [p.position, p.school, p.classYear ? `Class of ${p.classY
       })}
     </ol>
   </>}
-  {rest.length > 0 && <div class="rl">{rest.map((p) => <div class="rrow" data-region={p.region}><span class="rk">{p.rank}</span><div><h3>{p.name}</h3><p>{details(p)}</p>{p.stats ? <p>{p.stats}</p> : null}{p.blurb ? <p>{p.blurb}</p> : null}</div><span class={`mv ${p.move || 'same'}`}>{arrow[p.move] || 'Even'}</span></div>)}</div>}
+  {rest.length > 0 && <details class="more"><summary><span>See players ranked 6 to {rest[rest.length - 1].rank}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="rl">{rest.map((p) => <div class="rrow" data-region={p.region}><span class="rk">{p.rank}</span><div><h3>{p.name}</h3><p>{details(p)}</p>{p.stats ? <p>{p.stats}</p> : null}{p.blurb ? <p>{p.blurb}</p> : null}</div><span class={`mv ${p.move || 'same'}`}>{arrow[p.move] || 'Even'}</span></div>)}</div></details>}
   {players.length === 0 && <p class="muted">Player rankings are coming soon.</p>}
+
+  <section class="dv" data-kind="players" aria-labelledby="dv-h-players">
+    <div class="cards-head"><h2 id="dv-h-players">Players by Division</h2><p class="muted">The top 42 players in every LHSAA division. Type a division or tap one, then flip the switch for select or non-select.</p></div>
+    <div class="dv-tools">
+      <label class="dv-search"><span class="sr">Search for a division</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" list="dv-opts" autocomplete="off" placeholder='Search a division, like "Division 2" or "D3 select"' /></label>
+      <button type="button" class="dv-switch" role="switch" aria-checked="false" aria-label="Show select schools (off shows non-select)"><span class="dv-opt dv-n">Non-Select</span><span class="dv-opt dv-s">Select</span><span class="dv-knob" aria-hidden="true"></span></button>
+    </div>
+    <div class="dv-divs" role="group" aria-label="Choose a division">{DIVS.map((d) => <button type="button" class="chip" data-d={d} aria-pressed="false">Division {d}</button>)}</div>
+    {DIVS.map((d) => POOLS.map(([pool]) => { const list = divList(allPlayers, d, pool); return (
+      <div class="dv-list" data-d={d} data-pool={pool} hidden>
+        <h3 class="dv-title">Division {d} {poolName(pool)} <span class="muted">{list.length ? `Top ${list.length}` : ''}</span></h3>
+        {list.length > 0
+          ? <div class="rl">{list.map((x, i) => <div class="rrow" data-region={x.region}><span class="rk">{i + 1}</span><div><h3>{x.name}</h3><p>{details(x)}</p><p class="dv-state">State rank #{x.rank}</p></div><span class={`mv ${x.move || 'same'}`}>{arrow[x.move] || 'Even'}</span></div>)}</div>
+          : <p class="muted">No players ranked in Division {d} {poolName(pool)} yet.</p>}
+      </div>
+    ); }))}
+    <p class="muted dv-none" hidden>No division matches that search. Try a number from 1 to 4, like "Division 3".</p>
+  </section>
 </div>
 <div role="tabpanel" id="panel-schools" aria-labelledby="tab-schools" class="rpanel" hidden>
   {topSchools.length > 0 && <>
@@ -121,21 +148,62 @@ const details = (p) => [p.position, p.school, p.classYear ? `Class of ${p.classY
       })}
     </ol>
   </>}
-  <div class="rl">{restSchools.map((t) => <div class="rrow" data-region={t.region}><span class="rk">{t.rank}</span><div><h3>{t.team}</h3><p>{regionName(t.region)}{t.classification ? `, Class ${t.classification}` : ''}{t.record ? `, ${t.record}` : ''}</p>{t.blurb ? <p>{t.blurb}</p> : null}</div><span class={`mv ${t.move || 'same'}`}>{arrow[t.move] || 'Even'}</span></div>)}</div>
+  {restSchools.length > 0 && <details class="more"><summary><span>See schools ranked 6 to {restSchools[restSchools.length - 1].rank}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="rl">{restSchools.map((t) => <div class="rrow" data-region={t.region}><span class="rk">{t.rank}</span><div><h3>{t.team}</h3><p>{regionName(t.region)}{t.classification ? `, Class ${t.classification}` : ''}{t.record ? `, ${t.record}` : ''}</p>{t.blurb ? <p>{t.blurb}</p> : null}</div><span class={`mv ${t.move || 'same'}`}>{arrow[t.move] || 'Even'}</span></div>)}</div></details>}
   {teams.length === 0 && <p class="muted">School rankings are coming soon.</p>}
+
+  <section class="dv" data-kind="schools" aria-labelledby="dv-h-schools">
+    <div class="cards-head"><h2 id="dv-h-schools">Schools by Division</h2><p class="muted">The top 42 schools in every LHSAA division. Type a division or tap one, then flip the switch for select or non-select.</p></div>
+    <div class="dv-tools">
+      <label class="dv-search"><span class="sr">Search for a division</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input type="search" list="dv-opts" autocomplete="off" placeholder='Search a division, like "Division 2" or "D3 select"' /></label>
+      <button type="button" class="dv-switch" role="switch" aria-checked="false" aria-label="Show select schools (off shows non-select)"><span class="dv-opt dv-n">Non-Select</span><span class="dv-opt dv-s">Select</span><span class="dv-knob" aria-hidden="true"></span></button>
+    </div>
+    <div class="dv-divs" role="group" aria-label="Choose a division">{DIVS.map((d) => <button type="button" class="chip" data-d={d} aria-pressed="false">Division {d}</button>)}</div>
+    {DIVS.map((d) => POOLS.map(([pool]) => { const list = divList(allTeams, d, pool); return (
+      <div class="dv-list" data-d={d} data-pool={pool} hidden>
+        <h3 class="dv-title">Division {d} {poolName(pool)} <span class="muted">{list.length ? `Top ${list.length}` : ''}</span></h3>
+        {list.length > 0
+          ? <div class="rl">{list.map((x, i) => <div class="rrow" data-region={x.region}><span class="rk">{i + 1}</span><div><h3>{x.team}</h3><p>{[regionName(x.region), x.record].filter(Boolean).join(', ')}</p><p class="dv-state">State rank #{x.rank}</p></div><span class={`mv ${x.move || 'same'}`}>{arrow[x.move] || 'Even'}</span></div>)}</div>
+          : <p class="muted">No schools ranked in Division {d} {poolName(pool)} yet.</p>}
+      </div>
+    ); }))}
+    <p class="muted dv-none" hidden>No division matches that search. Try a number from 1 to 4, like "Division 3".</p>
+  </section>
 </div>
 
+<datalist id="dv-opts">{DIVS.map((d) => POOLS.map(([, n]) => <option value={`Division ${d} ${n}`} />))}</datalist>
 <p class="muted none" id="none" hidden>No one from this region is ranked this week.</p>
 </div></section>
 <script is:inline>
 (function(){
 var tabs=[].slice.call(document.querySelectorAll('.rtab')),c=document.getElementById('rc'),none=document.getElementById('none'),region='all';
 function active(){return document.querySelector('.rpanel:not([hidden])')}
-function filter(){var p=active(),shown=0;p.querySelectorAll('[data-region]').forEach(function(r){var ok=region==='all'||r.dataset.region===region;r.hidden=!ok;if(ok)shown++});none.hidden=shown>0||region==='all'}
+function filter(){var p=active(),shown=0;if(region!=='all')p.querySelectorAll('details.more').forEach(function(d){d.open=true});p.querySelectorAll('[data-region]').forEach(function(r){var ok=region==='all'||r.dataset.region===region;r.hidden=!ok;if(ok&&!r.closest('.dv'))shown++});none.hidden=shown>0||region==='all'}
 function show(name,focus){tabs.forEach(function(t){var on=t.dataset.tab===name;t.classList.toggle('on',on);t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;document.getElementById('panel-'+t.dataset.tab).hidden=!on;if(on&&focus)t.focus()});filter()}
 tabs.forEach(function(t,i){t.onclick=function(){show(t.dataset.tab);history.replaceState(null,'','#'+t.dataset.tab)};t.onkeydown=function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){e.preventDefault();var n=tabs[(i+d+tabs.length)%tabs.length];show(n.dataset.tab,true);history.replaceState(null,'','#'+n.dataset.tab)}}});
 c.onclick=function(e){var v=e.target.dataset&&e.target.dataset.v;if(!v)return;region=v;[].forEach.call(c.children,function(b){b.classList.toggle('on',b.dataset.v===v)});filter()};
 if(location.hash==='#schools')show('schools');
+// Division rankings: one shared division and select/non-select choice across both tabs.
+var dv={d:'I',pool:'non-select'},R={i:1,ii:2,iii:3,iv:4},N=['I','II','III','IV'];
+function dvPaint(){document.querySelectorAll('.dv').forEach(function(s){
+  s.querySelectorAll('.dv-list').forEach(function(l){l.hidden=!(l.dataset.d===dv.d&&l.dataset.pool===dv.pool)});
+  s.querySelectorAll('.dv-divs .chip').forEach(function(b){var on=b.dataset.d===dv.d;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
+  var sw=s.querySelector('.dv-switch');sw.setAttribute('aria-checked',dv.pool==='select');
+});}
+function dvSearch(q,s){var t=q.toLowerCase().replace(/division|div\.?/g,' ').replace(/\bd(?=\s*[1-4]\b)/g,' ').trim(),none=s.querySelector('.dv-none');
+  if(!t){none.hidden=true;return}
+  if(/non/.test(t))dv.pool='non-select';else if(/select|\bsel\b/.test(t))dv.pool='select';
+  var m=t.replace(/non-?\s*select|select|sel\b/g,' ').match(/\b(iv|iii|ii|i|[1-4])\b/);
+  var hasPool=/non|sel/.test(t);
+  if(m){dv.d=N[(R[m[1]]||Number(m[1]))-1];none.hidden=true}else none.hidden=hasPool;
+  dvPaint()}
+document.querySelectorAll('.dv').forEach(function(s){
+  var inp=s.querySelector('input');
+  inp.oninput=function(){dvSearch(inp.value,s)};
+  inp.onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();dvSearch(inp.value,s);inp.blur()}};
+  s.querySelector('.dv-switch').onclick=function(){dv.pool=dv.pool==='select'?'non-select':'select';dvPaint()};
+  s.querySelector('.dv-divs').onclick=function(e){var b=e.target.closest('[data-d]');if(!b)return;dv.d=b.dataset.d;inp.value='';s.querySelector('.dv-none').hidden=true;dvPaint()};
+});
+dvPaint();
 var still=matchMedia('(prefers-reduced-motion:reduce)').matches;
 document.querySelectorAll('.scard').forEach(function(k){
   k.onclick=function(){var f=k.classList.toggle('flipped');k.setAttribute('aria-pressed',f)};
