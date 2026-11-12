@@ -1,5 +1,5 @@
 ---
-title: Trent
+title: Trent Hebert
 regions:
   - baton-rouge
 specialties:
