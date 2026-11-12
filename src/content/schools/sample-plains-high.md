@@ -21,9 +21,7 @@ stats:
   - label: Playoff trips
     value: "24"
 funFacts:
-  - Sample fun fact. Replace with something only locals know about this school.
-  - Sample fun fact. Replace with a pregame tradition, a famous alum, or a
-    rivalry story.
+  - ZHS vs. CHS long time rivalary
 photos:
   - permission: true
     image: /uploads/dsc09060.jpeg
