@@ -1,10 +1,13 @@
 ---
-title: "Sample Creator 13"
-regions: ["baton-rouge"]
-specialties: ["Portraits", "Senior night"]
-rates: "Sample rate: add yours"
-email: "sample.creator13@example.com"
-bio: "Sample bio. Replace with the real creator."
+title: Trent
+regions:
+  - baton-rouge
+specialties:
+  - Sports/Portraits
+rates: ""
+email: ""
+phone: "3372015222"
+link: https://www.instagram.com/cameramantrent?psln=MXhha2xhOTRycnpzZA==
+bio: https://cameramantrent.myportfolio.com/home
+image: /uploads/img_3584.jpeg
 ---
-
-
