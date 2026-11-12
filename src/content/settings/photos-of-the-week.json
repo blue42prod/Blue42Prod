@@ -1,11 +1,46 @@
 {
-  "week": "2026-11-07",
+  "week": "2026-11-11",
   "intro": "Our five favorite frames from this week's games.",
   "photos": [
-    { "image": "/uploads/img_3464.jpeg", "caption": "Alexandria smoke", "alt": "Alexandria game - purple unis.", "photographer": "Tyler Gandy", "game": "Alexandria High School", "permission": true },
-    { "caption": "Sample photo: kickoff tunnel", "alt": "Sample photo: kickoff tunnel", "photographer": "Sample Creator 1", "game": "Sample Game 1", "permission": true },
-    { "caption": "Sample photo: student section", "alt": "Sample photo: student section", "photographer": "Sample Creator 2", "game": "Sample Game 2", "permission": true },
-    { "caption": "Sample photo: fourth-quarter huddle", "alt": "Sample photo: fourth-quarter huddle", "photographer": "Sample Creator 3", "game": "Sample Game 1", "permission": true },
-    { "caption": "Sample photo: band at halftime", "alt": "Sample photo: band at halftime", "photographer": "Sample Creator 4", "game": "Sample Game 2", "permission": true }
+    {
+      "caption": "LSU Ballin",
+      "alt": "LSU B-Ball player running onto court",
+      "photographer": "Tyler Gandy",
+      "game": "",
+      "permission": true,
+      "image": "/uploads/img_3588.jpeg"
+    },
+    {
+      "caption": "Tulane Prayer",
+      "alt": "Tulane player praying before game",
+      "photographer": "Cade Carlson",
+      "game": "",
+      "permission": true,
+      "image": "/uploads/img_8144.jpeg"
+    },
+    {
+      "caption": "Southern Univ. ",
+      "alt": "Southern Univ. player looking off during pre game",
+      "photographer": "Ben Tannehill",
+      "game": "Southern Univ. vs. UAPB",
+      "permission": true,
+      "image": "/uploads/scrl_0560.jpeg"
+    },
+    {
+      "caption": "Feeling Pumped",
+      "alt": "Player flexing after TD",
+      "photographer": "Connor Hurd",
+      "game": "",
+      "permission": true,
+      "image": "/uploads/img_5213.jpeg"
+    },
+    {
+      "image": "/uploads/img_3464.jpeg",
+      "caption": "Alexandria smoke",
+      "alt": "Alexandria game - purple unis.",
+      "photographer": "Tyler Gandy",
+      "game": "Alexandria High School",
+      "permission": true
+    }
   ]
 }
