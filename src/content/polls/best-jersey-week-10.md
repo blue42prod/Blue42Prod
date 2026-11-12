@@ -1,25 +1,31 @@
 ---
-title: "Best Jersey (sample)"
-kind: "jersey"
-week: "2026-11-09"
-status: "open"
+title: Best Jersey
+kind: jersey
+week: 2026-11-11
+status: open
 options:
-  - label: "Royal Classic (sample)"
-    school: "Sample High A"
-    color: "#1647FF"
-    number: "7"
-  - label: "Midnight Gold (sample)"
-    school: "Sample High B"
-    color: "#0C1330"
-    number: "12"
-  - label: "Home White (sample)"
-    school: "Sample High C"
-    color: "#FFFFFF"
-    number: "21"
-  - label: "Maroon Stripe (sample)"
-    school: "Sample High D"
-    color: "#7A1230"
-    number: "3"
+  - label: Tulane All Blue
+    school: Tulane
+    color: ""
+    number: ""
+    image: /uploads/img_8564.jpeg
+    permission: true
+  - label: Destrehan Red/Black Combo
+    school: Destrehan High School
+    color: ""
+    number: ""
+    image: /uploads/dsc00557.jpg
+    permission: true
+  - label: Monroe Red/White Combo
+    school: West Monroe
+    color: ""
+    number: ""
+    image: /uploads/dsc08222.jpg
+    permission: true
+  - label: Ruston All White
+    school: Ruston High School
+    color: ""
+    number: ""
+    image: /uploads/dsc00431.jpg
+    permission: true
 ---
-
-
