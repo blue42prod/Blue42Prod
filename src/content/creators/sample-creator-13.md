@@ -1,7 +1,7 @@
 ---
 title: Trent Hebert
 regions:
-  - baton-rouge
+  - acadiana
 specialties:
   - Sports/Portraits
 rates: ""
