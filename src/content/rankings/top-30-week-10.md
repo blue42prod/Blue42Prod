@@ -1,5 +1,5 @@
 ---
-title: Top 30 (sample)
+title: Top 42 (sample)
 week: 2026-11-09
 entries:
   - rank: 2
@@ -178,6 +178,78 @@ entries:
     blurb: Sample blurb. Replace with the real team and your write-up.
   - rank: 30
     team: Sample Tidewater High
+    region: baton-rouge
+    classification: Select
+    move: same
+    blurb: Sample blurb. Replace with the real team and your write-up.
+  - rank: 31
+    team: Sample Oakridge High
+    region: north
+    classification: 5A
+    move: same
+    blurb: Sample blurb. Replace with the real team and your write-up.
+  - rank: 32
+    team: Sample Bluewater High
+    region: central
+    classification: 4A
+    move: same
+    blurb: Sample blurb. Replace with the real team and your write-up.
+  - rank: 33
+    team: Sample Cane Field High
+    region: southwest
+    classification: 3A
+    move: same
+    blurb: Sample blurb. Replace with the real team and your write-up.
+  - rank: 34
+    team: Sample Lakeshore High
+    region: acadiana
+    classification: 2A
+    move: same
+    blurb: Sample blurb. Replace with the real team and your write-up.
+  - rank: 35
+    team: Sample Ironwood High
+    region: baton-rouge
+    classification: 1A
+    move: same
+    blurb: Sample blurb. Replace with the real team and your write-up.
+  - rank: 36
+    team: Sample Willow Bend High
+    region: northshore
+    classification: Select
+    move: same
+    blurb: Sample blurb. Replace with the real team and your write-up.
+  - rank: 37
+    team: Sample Red River High
+    region: new-orleans
+    classification: 5A
+    move: same
+    blurb: Sample blurb. Replace with the real team and your write-up.
+  - rank: 38
+    team: Sample Harbor High
+    region: north
+    classification: 4A
+    move: same
+    blurb: Sample blurb. Replace with the real team and your write-up.
+  - rank: 39
+    team: Sample Timberline High
+    region: central
+    classification: 3A
+    move: same
+    blurb: Sample blurb. Replace with the real team and your write-up.
+  - rank: 40
+    team: Sample Gulf Coast High
+    region: southwest
+    classification: 2A
+    move: same
+    blurb: Sample blurb. Replace with the real team and your write-up.
+  - rank: 41
+    team: Sample Sabine High
+    region: acadiana
+    classification: 1A
+    move: same
+    blurb: Sample blurb. Replace with the real team and your write-up.
+  - rank: 42
+    team: Sample Marsh Point High
     region: baton-rouge
     classification: Select
     move: same
@@ -608,4 +680,160 @@ players:
     weight: "210"
     blurb: Sample blurb. Replace with the real player and your write-up.
     stats: 52 tackles, 9 TFL
+  - color: "#1647FF"
+    height: 6-1
+    position: QB
+    number: "1"
+    name: Sample Player 31
+    rank: 31
+    permission: false
+    move: same
+    region: north
+    school: Sample High A
+    classYear: "2027"
+    weight: "195"
+    blurb: Sample blurb. Replace with the real player and your write-up.
+  - color: "#9E1B32"
+    height: 6-1
+    position: RB
+    number: "8"
+    name: Sample Player 32
+    rank: 32
+    permission: false
+    move: same
+    region: central
+    school: Sample High B
+    classYear: "2027"
+    weight: "195"
+    blurb: Sample blurb. Replace with the real player and your write-up.
+  - color: "#0A7A3B"
+    height: 6-1
+    position: WR
+    number: "15"
+    name: Sample Player 33
+    rank: 33
+    permission: false
+    move: same
+    region: southwest
+    school: Sample High C
+    classYear: "2027"
+    weight: "195"
+    blurb: Sample blurb. Replace with the real player and your write-up.
+  - color: "#4B2E83"
+    height: 6-1
+    position: TE
+    number: "22"
+    name: Sample Player 34
+    rank: 34
+    permission: false
+    move: same
+    region: acadiana
+    school: Sample High D
+    classYear: "2027"
+    weight: "195"
+    blurb: Sample blurb. Replace with the real player and your write-up.
+  - color: "#F2A900"
+    height: 6-1
+    position: OL
+    number: "29"
+    name: Sample Player 35
+    rank: 35
+    permission: false
+    move: same
+    region: baton-rouge
+    school: Sample High E
+    classYear: "2027"
+    weight: "195"
+    blurb: Sample blurb. Replace with the real player and your write-up.
+  - color: "#0C1330"
+    height: 6-1
+    position: DL
+    number: "36"
+    name: Sample Player 36
+    rank: 36
+    permission: false
+    move: same
+    region: northshore
+    school: Sample High F
+    classYear: "2027"
+    weight: "195"
+    blurb: Sample blurb. Replace with the real player and your write-up.
+  - color: "#1647FF"
+    height: 6-1
+    position: LB
+    number: "43"
+    name: Sample Player 37
+    rank: 37
+    permission: false
+    move: same
+    region: new-orleans
+    school: Sample High A
+    classYear: "2027"
+    weight: "195"
+    blurb: Sample blurb. Replace with the real player and your write-up.
+  - color: "#9E1B32"
+    height: 6-1
+    position: CB
+    number: "50"
+    name: Sample Player 38
+    rank: 38
+    permission: false
+    move: same
+    region: north
+    school: Sample High B
+    classYear: "2027"
+    weight: "195"
+    blurb: Sample blurb. Replace with the real player and your write-up.
+  - color: "#0A7A3B"
+    height: 6-1
+    position: S
+    number: "57"
+    name: Sample Player 39
+    rank: 39
+    permission: false
+    move: same
+    region: central
+    school: Sample High C
+    classYear: "2027"
+    weight: "195"
+    blurb: Sample blurb. Replace with the real player and your write-up.
+  - color: "#4B2E83"
+    height: 6-1
+    position: ATH
+    number: "64"
+    name: Sample Player 40
+    rank: 40
+    permission: false
+    move: same
+    region: southwest
+    school: Sample High D
+    classYear: "2027"
+    weight: "195"
+    blurb: Sample blurb. Replace with the real player and your write-up.
+  - color: "#F2A900"
+    height: 6-1
+    position: K
+    number: "71"
+    name: Sample Player 41
+    rank: 41
+    permission: false
+    move: same
+    region: acadiana
+    school: Sample High E
+    classYear: "2027"
+    weight: "195"
+    blurb: Sample blurb. Replace with the real player and your write-up.
+  - color: "#0C1330"
+    height: 6-1
+    position: DE
+    number: "78"
+    name: Sample Player 42
+    rank: 42
+    permission: false
+    move: same
+    region: baton-rouge
+    school: Sample High F
+    classYear: "2027"
+    weight: "195"
+    blurb: Sample blurb. Replace with the real player and your write-up.
 ---

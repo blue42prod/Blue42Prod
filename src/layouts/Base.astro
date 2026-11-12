@@ -3,7 +3,7 @@ import '../styles/global.css';
 const { title, description, type = 'website', image = '/logo-blue-bg.jpg', schema } = Astro.props;
 const full = title === 'Home' ? 'Blue 42 Productions | Louisiana High School Football' : `${title} | Blue 42 Productions`;
 const url = new URL(Astro.url.pathname, Astro.site);
-const nav = [['Stories', '/stories/'], ['Photos', '/photos/'], ['Creators', '/creators/'], ['Polls', '/polls/'], ['Rankings', '/rankings/'], ['Shop', '/shop/'], ['About', '/about/'], ['Contact', '/contact/']];
+const nav = [['Stories', '/stories/'], ['Photos', '/photos/'], ['Creators', '/creators/'], ['Polls', '/polls/'], ['Rankings', '/rankings/'], ['Schools', '/schools/'], ['Shop', '/shop/'], ['About', '/about/'], ['Contact', '/contact/']];
 ---
 <!doctype html>
 <html lang="en">
@@ -14,7 +14,7 @@ const nav = [['Stories', '/stories/'], ['Photos', '/photos/'], ['Creators', '/cr
 <meta property="og:title" content={full}><meta property="og:description" content={description}><meta property="og:type" content={type}><meta property="og:url" content={url}><meta property="og:image" content={new URL(image, Astro.site)}>
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Graduate&family=Michroma&display=swap">
 {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 <script is:inline>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
@@ -28,6 +28,7 @@ const nav = [['Stories', '/stories/'], ['Photos', '/photos/'], ['Creators', '/cr
 <main id="main"><slot /></main>
 <footer><div class="wrap"><img src="/logo-blue-bg.jpg" alt="" width="44" height="44" style="border-radius:10px;margin-bottom:1rem">
 <p>Blue 42 Productions. Louisiana high school football, told like a magazine.</p>
+<p>Designed and developed by Ben Tannehill</p>
 <p>Players are minors. See something that should come down? <a href="/contact/?topic=removal">Request removal</a>.</p></div></footer>
 <script is:inline>document.getElementById('theme').onclick=function(){var d=document.documentElement,k=d.dataset.theme?d.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches,n=k?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}}</script>
 </body></html>
