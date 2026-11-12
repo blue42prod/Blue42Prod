@@ -1,17 +1,18 @@
 ---
-title: Sample Plains High
+title: Zachary High School
 mascot: Broncos
 city: Zachary
 region: baton-rouge
 lat: 30.6485
 lng: -91.1565
 classification: 5A
-color: "#1647FF"
-founded: "1950"
-enrollment: "1,200"
-coach: Sample Coach
-stadium: Sample Memorial Stadium
-record: 8-2
+color: "#75BDEB"
+logo: /uploads/img_2493.jpeg
+record: 7-3
+coach: Coach Brew
+stadium: Bronco Land
+founded: "1912"
+enrollment: ""
 stats:
   - label: State titles
     value: "2"
@@ -21,7 +22,16 @@ stats:
     value: "24"
 funFacts:
   - Sample fun fact. Replace with something only locals know about this school.
-  - Sample fun fact. Replace with a pregame tradition, a famous alum, or a rivalry story.
-photos: []
-blurb: Sample school. Replace the name, pin location, stats, and photos in the admin page.
+  - Sample fun fact. Replace with a pregame tradition, a famous alum, or a
+    rivalry story.
+photos:
+  - permission: true
+    image: /uploads/dsc09060.jpeg
+    alt: Z player Dub
+    photographer: Ben Tannehill
+  - permission: true
+    image: /uploads/43da3d60-b122-4f6d-86c8-0baa936351ee.jpeg
+    alt: Z player TD
+    photographer: Ben Tannehill
+blurb: ""
 ---
