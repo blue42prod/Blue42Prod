@@ -4,7 +4,7 @@ regions:
   - baton-rouge
 specialties:
   - Game action
-rates: "Sample rate: $25"
+rates: ""
 email: shotzbytylerwork@gmail.com
 phone: 225-828-9778
 link: https://www.instagram.com/shotzby.tyler
