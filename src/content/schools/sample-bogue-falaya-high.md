@@ -1,8 +1,8 @@
 ---
-title: Zachary High School
+title: Extra
 mascot: Broncos
-city: Zachary
-region: baton-rouge
+city: ""
+region: northshore
 lat: 30.4755
 lng: -90.1009
 classification: 5A
